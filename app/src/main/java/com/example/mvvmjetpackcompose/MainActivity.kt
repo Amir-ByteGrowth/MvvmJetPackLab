@@ -23,6 +23,7 @@ import com.example.mvvmjetpackcompose.data.remote.ResourceSealed
 import com.example.mvvmjetpackcompose.ui.FirstViewModel
 
 import com.example.mvvmjetpackcompose.ui.screens.CreatePostsListScreen
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 import com.example.mvvmjetpackcompose.ui.theme.MvvmJetPackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    Greeting("Android")
+                    CreateMainScreen()
                 }
             }
         }
@@ -90,7 +91,7 @@ fun CreateHeader(viewModel: FirstViewModel, modifier: Modifier = Modifier) {
                         Text(
                             text = "User Name", color = Color.White
                         )
-                    }, placeholder = { Text(text = "Enter new user name")},
+                    }, placeholder = { Text(text = "Enter new user name") },
                     colors = TextFieldDefaults.textFieldColors(
                         cursorColor = Color.White,
                         placeholderColor = Color.White,
