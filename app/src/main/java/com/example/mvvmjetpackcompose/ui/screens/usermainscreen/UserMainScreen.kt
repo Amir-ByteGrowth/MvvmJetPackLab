@@ -32,7 +32,9 @@ fun CreateMainScreen() {
             topBar = { AppBar() },
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
         ) {
-
+            Column {
+                ImageSlider()
+            }
         }
     }
 }
