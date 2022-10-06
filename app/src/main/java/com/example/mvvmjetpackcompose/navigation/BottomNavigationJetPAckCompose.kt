@@ -22,8 +22,8 @@ fun BottomNav(navController: NavController) {
         BottomNavItem.Account
     )
     BottomNavigation(
-        backgroundColor = colorResource(id = R.color.teal_200),
-        contentColor = Color.Black
+        backgroundColor = colorResource(id = R.color.checking),
+        contentColor = Color.White
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -37,7 +37,7 @@ fun BottomNav(navController: NavController) {
                     )
                 },
                 selectedContentColor = Color.Black,
-                unselectedContentColor = Color.Black.copy(0.4f),
+                unselectedContentColor = Color.White,
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screen_route,
                 onClick = {

@@ -17,22 +17,6 @@ import com.example.mvvmjetpackcompose.ui.screens.homescreen.HomeScreen
 import com.example.mvvmjetpackcompose.ui.screens.splashscreen.CreateSplashScreen
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 
-@Composable
-fun SetupNavGraph(navController: NavHostController) {
-    NavHost(
-        navController = navController,
-        startDestination = Screens.SplashScreen.route
-    ) {
-        composable(route = Screens.SplashScreen.route) {
-            CreateSplashScreen() {
-
-            }
-        }
-
-    }
-
-
-}
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
