@@ -1,4 +1,4 @@
-package com.example.mvvmjetpackcompose.ui.screens.usermainscreen
+package com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -25,7 +25,7 @@ import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ImageSlider() {
+fun ImageSlider(modifier: Modifier = Modifier) {
     val slideImage = remember { mutableStateOf(R.drawable.slide1) }
     val state = rememberPagerState()
     HorizontalPager(count = 3, state = state) { page ->
@@ -42,9 +42,20 @@ fun ImageSlider() {
             2 -> {
                 slideImage.value = R.drawable.slide3
             }
+            3 -> {
+                slideImage.value = R.drawable.slide4
+            }
         }
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Box(
+            modifier = modifier
+                .padding(20.dp)
+                .fillMaxWidth(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier.padding(horizontal = 20.dp)
+            ) {
 
 
                 Image(

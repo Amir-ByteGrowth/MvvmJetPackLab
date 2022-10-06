@@ -15,6 +15,7 @@ import com.example.mvvmjetpackcompose.ui.screens.accountscreen.AccountScreen
 import com.example.mvvmjetpackcompose.ui.screens.chatscreen.ChatScreen
 import com.example.mvvmjetpackcompose.ui.screens.homescreen.HomeScreen
 import com.example.mvvmjetpackcompose.ui.screens.splashscreen.CreateSplashScreen
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
@@ -30,20 +31,21 @@ fun SetupNavGraph(navController: NavHostController) {
 
     }
 
-    @Composable
-    fun NavigationGraph(navController: NavHostController) {
-        NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
-            composable(BottomNavItem.Home.screen_route) {
-                HomeScreen()
-            }
-            composable(BottomNavItem.Chat.screen_route) {
-                ChatScreen()
-            }
-            composable(BottomNavItem.Account.screen_route) {
-                AccountScreen()
-            }
 
-        }
-    }
 }
 
+@Composable
+fun NavigationGraph(navController: NavHostController) {
+    NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
+        composable(BottomNavItem.Home.screen_route) {
+            CreateMainScreen()
+        }
+        composable(BottomNavItem.Chat.screen_route) {
+            ChatScreen()
+        }
+        composable(BottomNavItem.Account.screen_route) {
+            AccountScreen()
+        }
+
+    }
+}

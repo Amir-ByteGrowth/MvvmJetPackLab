@@ -17,9 +17,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.protobuf.Empty
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.mvvmjetpackcompose.data.local.datastore.DataStoreProvider
 import com.example.mvvmjetpackcompose.data.models.PostsResponseItem
 import com.example.mvvmjetpackcompose.data.remote.ResourceSealed
+import com.example.mvvmjetpackcompose.navigation.BottomNav
+import com.example.mvvmjetpackcompose.navigation.NavigationGraph
 import com.example.mvvmjetpackcompose.ui.FirstViewModel
 
 import com.example.mvvmjetpackcompose.ui.screens.CreatePostsListScreen
@@ -40,13 +43,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             MvvmJetPackComposeTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
+                val navController = rememberNavController()
+                Scaffold (bottomBar = {BottomNav(navController = navController)}){
 
-                    CreateMainScreen()
+                    NavigationGraph(navController = navController)
                 }
+
             }
         }
     }
