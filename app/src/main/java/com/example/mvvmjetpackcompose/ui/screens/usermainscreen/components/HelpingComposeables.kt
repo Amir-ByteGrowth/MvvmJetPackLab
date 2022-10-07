@@ -28,3 +28,15 @@ fun TitleString(title: String) {
         )
     )
 }
+
+@Composable
+fun TitleStringHeader(title: String) {
+    Text(
+        text = title,
+        style = TextStyle.Default.copy(
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
+    )
+}

@@ -37,4 +37,13 @@ class UserMainViewModel @Inject constructor(
         TestModel(R.drawable.iconsambulancehome, "Home Care"),
         TestModel(R.drawable.iconbrain, "Ambulance"),
     )
+
+    var settingsList = listOf(
+        TestModel(R.drawable.icon, "About Us"),
+        TestModel(R.drawable.icon, "Help"),
+        TestModel(R.drawable.icon, "Call Us"),
+        TestModel(R.drawable.icon, "Wallet"),
+        TestModel(R.drawable.icon, "Merge Member Request"),
+        TestModel(R.drawable.icon, "Log Out")
+    )
 }
