@@ -5,5 +5,7 @@ class Constants {
         //Screens
         const val SPLASH_SCREEN = "Splash"
         const val UPDATE_BOOK_SCREEN = "Update book"
+
+        const val MANAGE_RELATIONS = "ManageRelations"
     }
 }

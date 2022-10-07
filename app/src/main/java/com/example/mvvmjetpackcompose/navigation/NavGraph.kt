@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import com.example.mvvmjetpackcompose.ui.screens.accountscreen.AccountScreen
 import com.example.mvvmjetpackcompose.ui.screens.chatscreen.ChatScreen
 import com.example.mvvmjetpackcompose.ui.screens.homescreen.HomeScreen
+import com.example.mvvmjetpackcompose.ui.screens.managerelationship.ManageRelationShipsScreen
 import com.example.mvvmjetpackcompose.ui.screens.splashscreen.CreateSplashScreen
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 
@@ -28,7 +29,15 @@ fun NavigationGraph(navController: NavHostController) {
             ChatScreen()
         }
         composable(BottomNavItem.Account.screen_route) {
-            AccountScreen()
+            AccountScreen(clicks = object : AccountScreenClicks {
+                override fun navigateToManageScreen() {
+                    navController.navigate(Screens.ManageScreens.route)
+                }
+            })
+        }
+
+        composable(Screens.ManageScreens.route) {
+            ManageRelationShipsScreen()
         }
 
     }

@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
 import com.example.mvvmjetpackcompose.data.models.TestModel
+import com.example.mvvmjetpackcompose.navigation.AccountScreenClicks
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.UserMainViewModel
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.TitleString
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.TitleStringHeader
@@ -29,7 +30,7 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.Title
 @Composable
 fun AccountScreen(
     modifier: Modifier = Modifier,
-    userMainViewModel: UserMainViewModel = hiltViewModel()
+    userMainViewModel: UserMainViewModel = hiltViewModel(),clicks: AccountScreenClicks
 ) {
     var settingsList = userMainViewModel.settingsList
 
@@ -56,7 +57,7 @@ fun AccountScreen(
                 Text(text = "03067274669")
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { clicks.navigateToManageScreen() },
                 modifier = modifier
                     .align(Alignment.BottomEnd)
                     .height(45.dp)
