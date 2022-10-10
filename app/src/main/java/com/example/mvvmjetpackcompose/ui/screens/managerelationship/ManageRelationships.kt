@@ -7,16 +7,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -26,18 +25,56 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
 import com.example.mvvmjetpackcompose.data.models.RelationModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ManageRelationShipsScreen(modifier: Modifier = Modifier) {
-    Scaffold(
-        topBar = { RelationShipAppBar() },
-        modifier = modifier.padding(start = 20.dp, bottom = 20.dp),
-        content = { RelationShipManagementContent() }
-    )
+    val modalBottomSheetState =
+        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val scope = rememberCoroutineScope()
+    ModalBottomSheetLayout(
+        sheetContent = {
+            BottomSheetContent()
+        },
+        sheetState = modalBottomSheetState,
+        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        sheetBackgroundColor = colorResource(id = R.color.teal_700),
+        // scrimColor = Color.Red,  // Color for the fade background when you open/close the drawer
+    ) {
+        Scaffold(
+            topBar = { RelationShipAppBar(scope = scope, state = modalBottomSheetState) },
+            modifier = modifier.padding(start = 20.dp, bottom = 20.dp),
+            content = { RelationShipManagementContent() }
+        )
+//        { padding ->  // We need to pass scaffold's inner padding to content. That's why we use Box.
+//            Box(modifier = Modifier.padding(padding)) {
+//                ModalBottomSheetMainScreen(scope = scope, state = modalBottomSheetState)
+//            }
+//        }
+    }
 }
 
+
+//@Composable
+//fun ManageRelationShipsScreen(modifier: Modifier = Modifier) {
+//    Scaffold(
+//
+//        modifier = modifier.padding(start = 20.dp, bottom = 20.dp),
+//        content = { RelationShipManagementContent() }
+//    )
+//}
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun RelationShipAppBar(modifier: Modifier = Modifier) {
+fun RelationShipAppBar(
+    modifier: Modifier = Modifier,
+    scope: CoroutineScope,
+    state: ModalBottomSheetState
+) {
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
@@ -59,7 +96,13 @@ fun RelationShipAppBar(modifier: Modifier = Modifier) {
         Box(
             modifier = modifier
                 .size(50.dp)
-                .clickable { }, contentAlignment = Alignment.Center
+                .clickable(onClick = {
+                    scope.launch {
+                            state.show()
+                        }
+
+                }),
+            contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(id = R.drawable.adduser),
@@ -121,6 +164,41 @@ fun CardRelationItem(modifier: Modifier = Modifier, relationModel: RelationModel
                 )
             }
 
+        }
+    }
+}
+
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun HomeScreen(show: () -> Unit) {
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
+    )
+    val coroutineScope = rememberCoroutineScope()
+    BottomSheetScaffold(
+        scaffoldState = bottomSheetScaffoldState,
+        sheetContent = {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            ) {
+                Text(text = "Hello from sheet")
+            }
+        }, sheetPeekHeight = 0.dp
+    ) {
+        Button(onClick = {
+            coroutineScope.launch {
+
+                if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
+                    bottomSheetScaffoldState.bottomSheetState.expand()
+                } else {
+                    bottomSheetScaffoldState.bottomSheetState.collapse()
+                }
+            }
+        }) {
+            Text(text = "Expand/Collapse Bottom Sheet")
         }
     }
 }
