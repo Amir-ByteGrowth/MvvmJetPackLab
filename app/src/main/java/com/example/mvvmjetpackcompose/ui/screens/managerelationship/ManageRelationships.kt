@@ -49,23 +49,10 @@ fun ManageRelationShipsScreen(modifier: Modifier = Modifier) {
             modifier = modifier.padding(start = 20.dp, bottom = 20.dp),
             content = { RelationShipManagementContent() }
         )
-//        { padding ->  // We need to pass scaffold's inner padding to content. That's why we use Box.
-//            Box(modifier = Modifier.padding(padding)) {
-//                ModalBottomSheetMainScreen(scope = scope, state = modalBottomSheetState)
-//            }
-//        }
+
     }
 }
 
-
-//@Composable
-//fun ManageRelationShipsScreen(modifier: Modifier = Modifier) {
-//    Scaffold(
-//
-//        modifier = modifier.padding(start = 20.dp, bottom = 20.dp),
-//        content = { RelationShipManagementContent() }
-//    )
-//}
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -98,8 +85,8 @@ fun RelationShipAppBar(
                 .size(50.dp)
                 .clickable(onClick = {
                     scope.launch {
-                            state.show()
-                        }
+                        state.show()
+                    }
 
                 }),
             contentAlignment = Alignment.Center
@@ -119,21 +106,38 @@ fun RelationShipManagementContent(
     relationShipManagementViewModel: RelationShipManagementViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
+    if (relationShipManagementViewModel.showDialog.value) {
+        RelationShipDialog(
+            value = relationShipManagementViewModel.selectedItemValue,
+            setShowDialog = { relationShipManagementViewModel.showDialog.value = false },
+            setValue = {})
+    }
+
+
     LazyColumn(state = rememberLazyListState(), modifier = modifier.padding(end = 20.dp)) {
         items(relationShipManagementViewModel.relationShipList) {
-            CardRelationItem(relationModel = it)
+            CardRelationItem(
+                relationModel = it,
+                itemClick = {
+                    relationShipManagementViewModel.selectedItemValue = it.relation
+                    relationShipManagementViewModel.showDialog.value = true
+                })
         }
     }
 }
 
 
 @Composable
-fun CardRelationItem(modifier: Modifier = Modifier, relationModel: RelationModel) {
+fun CardRelationItem(
+    modifier: Modifier = Modifier,
+    relationModel: RelationModel,
+    itemClick: () -> Unit
+) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 4.dp, vertical = 6.dp)
-            .clickable { }, elevation = 4.dp
+            .clickable { itemClick() }, elevation = 4.dp
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

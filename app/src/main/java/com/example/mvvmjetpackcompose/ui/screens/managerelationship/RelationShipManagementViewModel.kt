@@ -1,5 +1,6 @@
 package com.example.mvvmjetpackcompose.ui.screens.managerelationship
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.mvvmjetpackcompose.data.models.RelationModel
 import com.example.mvvmjetpackcompose.data.remote.reporitory.MainRepository
@@ -19,5 +20,9 @@ class RelationShipManagementViewModel @Inject constructor(
         RelationModel("Muhammad Orhan Khan", "Son"),
         RelationModel("Muhammad Alp Arslan", "Son")
     )
+
+    var showDialog = mutableStateOf(false)
+
+    var selectedItemValue = ""
 
 }
