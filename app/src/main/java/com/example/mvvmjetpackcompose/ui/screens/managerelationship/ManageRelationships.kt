@@ -41,7 +41,7 @@ fun ManageRelationShipsScreen(modifier: Modifier = Modifier) {
         },
         sheetState = modalBottomSheetState,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-        sheetBackgroundColor = colorResource(id = R.color.teal_700),
+        sheetBackgroundColor = colorResource(id = R.color.white),
         // scrimColor = Color.Red,  // Color for the fade background when you open/close the drawer
     ) {
         Scaffold(
