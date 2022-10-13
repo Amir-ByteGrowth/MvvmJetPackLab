@@ -18,18 +18,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.navigation.HomeScreenClicks
 import com.example.mvvmjetpackcompose.splashactivity.ui.theme.MvvmJetPackComposeTheme
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.*
 
 @Composable
-fun CreateMainScreen() {
+fun CreateMainScreen(homeScreenClicks: HomeScreenClicks) {
 
     MvvmJetPackComposeTheme {
-        HomeScreen()
+        HomeScreen(homeScreenClicks = homeScreenClicks)
     }
 }
 
@@ -78,7 +80,10 @@ fun AppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun HomeScreen(userMainViewModel: UserMainViewModel = hiltViewModel()) {
+fun HomeScreen(
+    userMainViewModel: UserMainViewModel = hiltViewModel(),
+    homeScreenClicks: HomeScreenClicks
+) {
     Scaffold(
         topBar = { AppBar() },
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 45.dp)
@@ -93,7 +98,7 @@ fun HomeScreen(userMainViewModel: UserMainViewModel = hiltViewModel()) {
 //                SpacerCompose(modifier)
             item { TitleString("Search Tests") }
             item { Spacer(modifier = modifier.height(10.dp)) }
-            item { TestsList(userMainViewModel.testsList) }
+            item { TestsList(userMainViewModel.testsList, homeScreenClicks = homeScreenClicks) }
             item { Spacer(modifier = modifier.height(13.dp)) }
             item { TitleString("Chughtai Care") }
             item { Spacer(modifier = modifier.height(1.dp)) }
@@ -102,10 +107,16 @@ fun HomeScreen(userMainViewModel: UserMainViewModel = hiltViewModel()) {
             item { Spacer(modifier = modifier.height(13.dp)) }
             item { TitleString("Our Services") }
             item { Spacer(modifier = modifier.height(10.dp)) }
-            item { TestsList(userMainViewModel.chughtaiServicesList) }
+            item { TestsList(userMainViewModel.chughtaiServicesList,homeScreenClicks=homeScreenClicks) }
             item { Spacer(modifier = modifier.height(10.dp)) }
 
 
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewAppBar() {
+    AppBar()
 }

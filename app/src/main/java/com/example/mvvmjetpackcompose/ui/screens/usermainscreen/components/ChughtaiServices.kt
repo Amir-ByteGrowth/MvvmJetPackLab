@@ -30,10 +30,11 @@ fun ChugtaiServicesList(testNameList: List<TestModel>) {
         cells = GridCells.Adaptive(100.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
-        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 10.dp), modifier = Modifier.height(230.dp)
+        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 10.dp),
+        modifier = Modifier.height(230.dp)
     ) {
         items(testNameList) {
-            ItemCard(testModel = it)
+            ItemCard(testModel = it, onItemClick = {})
         }
     }
 }

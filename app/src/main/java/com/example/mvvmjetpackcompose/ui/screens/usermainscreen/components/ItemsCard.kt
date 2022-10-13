@@ -26,16 +26,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mvvmjetpackcompose.R
 import com.example.mvvmjetpackcompose.data.models.TestModel
+import com.example.mvvmjetpackcompose.navigation.HomeScreenClicks
 
 
 @Composable
-fun TestsList(testNameList: List<TestModel>) {
+fun TestsList(testNameList: List<TestModel>, homeScreenClicks: HomeScreenClicks) {
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(horizontal = 10.dp)
     ) {
         items(testNameList) {
-            ItemCard(testModel = it)
+            ItemCard(testModel = it, onItemClick = {
+                if (it.name == "All") {
+                    homeScreenClicks.navigateToAllTestScreen()
+                }
+            })
+
         }
     }
 }
@@ -43,19 +49,21 @@ fun TestsList(testNameList: List<TestModel>) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ItemCard(testModel: TestModel, modifier: Modifier = Modifier) {
+fun ItemCard(testModel: TestModel, modifier: Modifier = Modifier, onItemClick: () -> Unit) {
     Card(
         shape = RoundedCornerShape(10.dp),
         elevation = 4.dp,
         modifier = modifier
-            .size(100.dp)
-           ,
-        onClick = {  }
+            .size(100.dp),
+        onClick = onItemClick
     ) {
         Box(contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(painter = painterResource(testModel.icon), contentDescription = "desc")
-                Text(text = testModel.name, style = TextStyle.Default.copy(color = Color.Gray, fontSize = 12.sp))
+                Text(
+                    text = testModel.name,
+                    style = TextStyle.Default.copy(color = Color.Gray, fontSize = 12.sp)
+                )
             }
         }
     }
@@ -64,5 +72,5 @@ fun ItemCard(testModel: TestModel, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun ItemCardPreview() {
-    ItemCard(TestModel(R.drawable.iconkidney, "Kidney"))
+    ItemCard(TestModel(R.drawable.iconkidney, "Kidney"), onItemClick = {})
 }
