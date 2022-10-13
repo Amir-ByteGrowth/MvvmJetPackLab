@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mvvmjetpackcompose.R
@@ -31,7 +32,7 @@ fun TestsListScreen(modifier: Modifier = Modifier) {
     Scaffold(topBar = { TestsListAppBar() },
         modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
-            Column {
+            Column(modifier = modifier.padding(vertical = 10.dp)) {
                 TestListsScreenSearchBar()
 
             }
@@ -40,10 +41,14 @@ fun TestsListScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
-    Card(modifier = modifier.padding(horizontal = 5.dp), elevation = 5.dp) {
+    Card(
+        modifier = modifier
+            .padding(horizontal = 5.dp)
+            .height(55.dp), elevation = 5.dp
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.padding(horizontal = 5.dp, vertical = 5.dp)
+            modifier = modifier.padding(start = 5.dp, end = 5.dp, bottom = 5.dp)
         ) {
             Icon(imageVector = Icons.Default.Search, contentDescription = "")
             Spacer(modifier = modifier.width(15.dp))
@@ -52,7 +57,8 @@ fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
                 value = "Search",
                 onValueChange = { "Search.." },
                 modifier = modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White)
+                colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White),
+                textStyle = TextStyle.Default.copy(fontSize = 13.sp)
             )
         }
     }
@@ -110,4 +116,17 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Composable
+fun TestListItem() {
+    Card {
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewTestListItem() {
+    TestListItem()
 }
