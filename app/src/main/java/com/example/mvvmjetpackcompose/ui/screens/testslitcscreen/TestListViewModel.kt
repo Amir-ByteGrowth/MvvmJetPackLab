@@ -1,0 +1,63 @@
+package com.example.mvvmjetpackcompose.ui.screens.testslitcscreen
+
+import androidx.lifecycle.ViewModel
+import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.data.models.TestListModel
+import com.example.mvvmjetpackcompose.data.models.TestModel
+import com.example.mvvmjetpackcompose.data.remote.reporitory.MainRepository
+import com.example.mvvmjetpackcompose.utils.NetworkHelper
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class TestListViewModel @Inject constructor(
+    private val mainRepository: MainRepository,
+    private val networkHelper: NetworkHelper
+) : ViewModel() {
+    var testListModel = listOf(
+        TestListModel(
+            "Blood C/F (Complete,CBC)",
+            "Includes 11 Tests",
+            "Computer blood examination",
+            "Recommended for for both: Male,Female",
+            "600 PKR"
+        ),
+        TestListModel(
+            "Urine C/F (Complete,UBT)",
+            "Includes 11 Tests",
+            "Computer blood examination",
+            "Recommended for for both: Male,Female",
+            "450 PKR"
+        ),
+        TestListModel(
+            "Blood C/F (Complete,ANB)",
+            "Includes 11 Tests",
+            "Computer blood examination",
+            "Recommended for for both: Male,Female",
+            "320 PKR"
+        ),
+        TestListModel(
+            "HEART (Complete,Female)",
+            "Includes 11 Tests",
+            "Computer blood examination",
+            "Recommended for for both: Male,Female",
+            "370 PKR"
+        ),
+        TestListModel(
+            "Nerve (Complete,Female)",
+            "Includes 11 Tests",
+            "Computer blood examination",
+            "Recommended for for both: Male,Female",
+            "180 PKR"
+        ),
+        TestListModel(
+            "Shoulder C/F (Complete,Female)",
+            "Includes 11 Tests",
+            "Computer blood examination",
+            "Recommended for for both: Male,Female",
+            "980 PKR"
+        )
+    )
+
+
+}

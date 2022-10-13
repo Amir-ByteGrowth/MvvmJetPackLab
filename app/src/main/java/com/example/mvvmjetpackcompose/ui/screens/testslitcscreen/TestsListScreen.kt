@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -27,7 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.data.models.TestListModel
 
 @Composable
 fun TestsListScreen(modifier: Modifier = Modifier) {
@@ -36,16 +39,28 @@ fun TestsListScreen(modifier: Modifier = Modifier) {
         content = {
             Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
                 TestListsScreenSearchBar()
-                TestListItem()
+                Spacer(modifier = modifier.height(10.dp))
+                AllTestsListContent()
+
             }
         })
 }
 
+
+@Composable
+fun AllTestsListContent(testListViewModel: TestListViewModel = hiltViewModel()) {
+    LazyColumn(modifier = Modifier.padding(bottom = 70.dp)) {
+        items(testListViewModel.testListModel) {
+            TestListItem(testListModel = it)
+        }
+    }
+}
+
+
 @Composable
 fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier
-            .height(55.dp), elevation = 5.dp
+        modifier = modifier.height(55.dp), elevation = 5.dp
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -74,33 +89,30 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
             .height(60.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier.fillMaxHeight()) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
+            Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back",
                 modifier = modifier.clickable {})
             Spacer(modifier = modifier.width(15.dp))
             Text(
-                text = "All Tests",
-                style = TextStyle.Default.copy(
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                text = "All Tests", style = TextStyle.Default.copy(
+                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp
                 )
             )
         }
 
-        Box(modifier = modifier
-            .align(Alignment.TopEnd)
-            .fillMaxHeight()
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = true), // You can also change the color and radius of the ripple
-                onClick = {}
-            )
+        Box(
+            modifier = modifier
+                .align(Alignment.TopEnd)
+                .fillMaxHeight()
+                .clickable(interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(bounded = true), // You can also change the color and radius of the ripple
+                    onClick = {})
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.iconscart),
-                contentDescription = "icons", tint = Color.Blue, modifier = modifier.align(
+                contentDescription = "icons",
+                tint = Color.Blue,
+                modifier = modifier.align(
                     Alignment.BottomStart
                 )
             )
@@ -110,8 +122,7 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
                     .size(25.dp)
                     .align(Alignment.TopEnd)
                     .clip(RoundedCornerShape(100))
-                    .background(Color.Blue),
-                contentAlignment = Alignment.Center
+                    .background(Color.Blue), contentAlignment = Alignment.Center
             ) {
                 Text(text = "9", color = Color.White, fontSize = 13.sp)
             }
@@ -120,50 +131,42 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TestListItem(modifier: Modifier = Modifier) {
-    Card(elevation = 5.dp) {
+fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel) {
+    Card(elevation = 5.dp, modifier = modifier.padding(top = 10.dp, bottom = 2.dp)) {
         Column(modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp)) {
             Text(
-                text = "Blood C/F (Complete, CBC)",
-                style = TextStyle.Default.copy(
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 15.sp
+                text = testListModel.testName, style = TextStyle.Default.copy(
+                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 15.sp
                 )
 
             )
             Divider()
             Spacer(modifier = modifier.height(5.dp))
             Text(
-                text = "Includes 11 Tests",
-                style = TextStyle.Default.copy(
-                    color = Color.Gray.copy(alpha = 0.5f),
-                    fontSize = 12.sp
+                text = testListModel.testInclude, style = TextStyle.Default.copy(
+                    color = Color.Gray.copy(alpha = 0.5f), fontSize = 12.sp
                 )
             )
 
             Text(
-                text = "Computer blood examination",
-                style = TextStyle.Default.copy(
-                    color = Color.Gray.copy(alpha = 0.5f),
-                    fontSize = 12.sp
+                text = testListModel.testType, style = TextStyle.Default.copy(
+                    color = Color.Gray.copy(alpha = 0.5f), fontSize = 12.sp
                 )
             )
 
             OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = "Recommended for both: Male,Female")
+                Text(text = testListModel.recommendedFor)
             }
             Box(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp, top = 5.dp), contentAlignment = Alignment.CenterStart
+                    .padding(start = 10.dp, top = 5.dp),
+                contentAlignment = Alignment.CenterStart
             ) {
                 Text(
 
-                    text = "750 PKR",
-                    style = TextStyle.Default.copy(
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold, fontSize = 12.sp
+                    text = testListModel.price, style = TextStyle.Default.copy(
+                        color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 12.sp
                     )
                 )
                 Row(modifier = modifier.align(Alignment.CenterEnd)) {
@@ -187,5 +190,5 @@ fun TestListItem(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTestListItem() {
-    TestListItem()
+    TestListItem(testListModel = TestListModel("", "", "", "", ""))
 }
