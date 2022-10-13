@@ -1,5 +1,6 @@
 package com.example.mvvmjetpackcompose.ui.screens.testslitcscreen
 
+import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -32,9 +34,9 @@ fun TestsListScreen(modifier: Modifier = Modifier) {
     Scaffold(topBar = { TestsListAppBar() },
         modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
-            Column(modifier = modifier.padding(vertical = 10.dp)) {
+            Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
                 TestListsScreenSearchBar()
-
+                TestListItem()
             }
         })
 }
@@ -43,7 +45,6 @@ fun TestsListScreen(modifier: Modifier = Modifier) {
 fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
-            .padding(horizontal = 5.dp)
             .height(55.dp), elevation = 5.dp
     ) {
         Row(
@@ -119,9 +120,67 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TestListItem() {
-    Card {
+fun TestListItem(modifier: Modifier = Modifier) {
+    Card(elevation = 5.dp) {
+        Column(modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp)) {
+            Text(
+                text = "Blood C/F (Complete, CBC)",
+                style = TextStyle.Default.copy(
+                    color = Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp
+                )
 
+            )
+            Divider()
+            Spacer(modifier = modifier.height(5.dp))
+            Text(
+                text = "Includes 11 Tests",
+                style = TextStyle.Default.copy(
+                    color = Color.Gray.copy(alpha = 0.5f),
+                    fontSize = 12.sp
+                )
+            )
+
+            Text(
+                text = "Computer blood examination",
+                style = TextStyle.Default.copy(
+                    color = Color.Gray.copy(alpha = 0.5f),
+                    fontSize = 12.sp
+                )
+            )
+
+            OutlinedButton(onClick = { /*TODO*/ }) {
+                Text(text = "Recommended for both: Male,Female")
+            }
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, top = 5.dp), contentAlignment = Alignment.CenterStart
+            ) {
+                Text(
+
+                    text = "750 PKR",
+                    style = TextStyle.Default.copy(
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold, fontSize = 12.sp
+                    )
+                )
+                Row(modifier = modifier.align(Alignment.CenterEnd)) {
+                    Button(onClick = { /*TODO*/ }) {
+                        Text(text = "DETAIL")
+                    }
+                    Spacer(modifier = modifier.width(7.dp))
+                    OutlinedButton(
+                        onClick = { /*TODO*/ },
+                        modifier = modifier.width(50.dp),
+
+                        ) {
+                        Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "")
+                    }
+                }
+            }
+        }
     }
 }
 
