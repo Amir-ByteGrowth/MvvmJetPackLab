@@ -19,42 +19,42 @@ class TestListViewModel @Inject constructor(
             "Blood C/F (Complete,CBC)",
             "Includes 11 Tests",
             "Computer blood examination",
-            "Recommended for for both: Male,Female",
+            "Recommended for: Male,Female",
             "600 PKR"
         ),
         TestListModel(
             "Urine C/F (Complete,UBT)",
             "Includes 11 Tests",
             "Computer blood examination",
-            "Recommended for for both: Male,Female",
+            "Recommended for: Male,Female",
             "450 PKR"
         ),
         TestListModel(
             "Blood C/F (Complete,ANB)",
             "Includes 11 Tests",
             "Computer blood examination",
-            "Recommended for for both: Male,Female",
+            "Recommended for: Male,Female",
             "320 PKR"
         ),
         TestListModel(
             "HEART (Complete,Female)",
             "Includes 11 Tests",
             "Computer blood examination",
-            "Recommended for for both: Male,Female",
+            "Recommended for: Male,Female",
             "370 PKR"
         ),
         TestListModel(
             "Nerve (Complete,Female)",
             "Includes 11 Tests",
             "Computer blood examination",
-            "Recommended for for both: Male,Female",
+            "Recommended for: Male,Female",
             "180 PKR"
         ),
         TestListModel(
             "Shoulder C/F (Complete,Female)",
             "Includes 11 Tests",
             "Computer blood examination",
-            "Recommended for for both: Male,Female",
+            "Recommended for: Male,Female",
             "980 PKR"
         )
     )
