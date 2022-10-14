@@ -6,4 +6,8 @@ interface AccountScreenClicks {
 
 interface HomeScreenClicks {
     fun navigateToAllTestScreen()
+
+}
+interface AllTestScreenClicks{
+    fun navigateToTestDetailScreen()
 }

@@ -31,16 +31,17 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
 import com.example.mvvmjetpackcompose.data.models.TestListModel
+import com.example.mvvmjetpackcompose.navigation.AllTestScreenClicks
 
 @Composable
-fun TestsListScreen(modifier: Modifier = Modifier) {
+fun TestsListScreen(modifier: Modifier = Modifier,allTestScreenClicks: AllTestScreenClicks) {
     Scaffold(topBar = { TestsListAppBar() },
         modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
             Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
                 TestListsScreenSearchBar()
                 Spacer(modifier = modifier.height(10.dp))
-                AllTestsListContent()
+                AllTestsListContent(allTestScreenClicks = allTestScreenClicks)
 
             }
         })
@@ -48,10 +49,10 @@ fun TestsListScreen(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun AllTestsListContent(testListViewModel: TestListViewModel = hiltViewModel()) {
+fun AllTestsListContent(testListViewModel: TestListViewModel = hiltViewModel(),allTestScreenClicks: AllTestScreenClicks) {
     LazyColumn(modifier = Modifier.padding(bottom = 70.dp)) {
         items(testListViewModel.testListModel) {
-            TestListItem(testListModel = it)
+            TestListItem(testListModel = it, allTestScreenClicks = allTestScreenClicks)
         }
     }
 }
@@ -131,7 +132,7 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel) {
+fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel,allTestScreenClicks: AllTestScreenClicks) {
     Card(elevation = 5.dp, modifier = modifier.padding(top = 10.dp, bottom = 2.dp)) {
         Column(modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp)) {
             Text(
@@ -170,7 +171,7 @@ fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel) {
                     )
                 )
                 Row(modifier = modifier.align(Alignment.CenterEnd)) {
-                    Button(onClick = { /*TODO*/ }) {
+                    Button(onClick = { allTestScreenClicks.navigateToTestDetailScreen() }) {
                         Text(text = "DETAIL")
                     }
                     Spacer(modifier = modifier.width(7.dp))
@@ -190,5 +191,9 @@ fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewTestListItem() {
-    TestListItem(testListModel = TestListModel("", "", "", "", ""))
+    TestListItem(testListModel = TestListModel("", "", "", "", ""), allTestScreenClicks = object :AllTestScreenClicks{
+        override fun navigateToTestDetailScreen() {
+
+        }
+    })
 }
