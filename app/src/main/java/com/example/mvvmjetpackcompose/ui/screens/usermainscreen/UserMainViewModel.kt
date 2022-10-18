@@ -1,7 +1,9 @@
 package com.example.mvvmjetpackcompose.ui.screens.usermainscreen
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.data.models.RelationShipEnableModel
 import com.example.mvvmjetpackcompose.data.models.TestModel
 import com.example.mvvmjetpackcompose.data.remote.reporitory.MainRepository
 import com.example.mvvmjetpackcompose.utils.NetworkHelper
@@ -46,4 +48,6 @@ class UserMainViewModel @Inject constructor(
         TestModel(R.drawable.icon, "Merge Member Request"),
         TestModel(R.drawable.icon, "Log Out")
     )
+
+
 }

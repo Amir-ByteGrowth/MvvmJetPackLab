@@ -1,7 +1,10 @@
 package com.example.mvvmjetpackcompose.ui.screens.testslitcscreen
 
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.data.models.RelationShipEnableModel
 import com.example.mvvmjetpackcompose.data.models.TestListModel
 import com.example.mvvmjetpackcompose.data.models.TestModel
 import com.example.mvvmjetpackcompose.data.remote.reporitory.MainRepository
@@ -60,4 +63,17 @@ class TestListViewModel @Inject constructor(
     )
 
 
+
+    var showDialog = mutableStateOf(false)
+
+    var relationShipEnableModels = mutableStateListOf(
+        RelationShipEnableModel("Amir", false),
+        RelationShipEnableModel("Rashid", false),
+        RelationShipEnableModel("Nomi", false),
+        RelationShipEnableModel("Abdul Rehman", false),
+        RelationShipEnableModel("Asad", false),
+        RelationShipEnableModel("Orhan", false),
+        RelationShipEnableModel("Anza Fatima", false),
+        RelationShipEnableModel("Nauman", false)
+    )
 }

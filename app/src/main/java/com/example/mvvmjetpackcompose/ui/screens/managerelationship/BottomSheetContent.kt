@@ -130,50 +130,6 @@ fun BottomSheetContent(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(50.dp))
     }
-
-
-//    Column {
-//        BottomSheetListItem(
-//            icon = R.drawable.icon,
-//            title = "Share",
-//            onItemClick = { title ->
-//                Toast.makeText(
-//                    context,
-//                    title,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            })
-//        BottomSheetListItem(
-//            icon = R.drawable.icon,
-//            title = "Get link",
-//            onItemClick = { title ->
-//                Toast.makeText(
-//                    context,
-//                    title,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            })
-//        BottomSheetListItem(
-//            icon = R.drawable.icon,
-//            title = "Edit name",
-//            onItemClick = { title ->
-//                Toast.makeText(
-//                    context,
-//                    title,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            })
-//        BottomSheetListItem(
-//            icon = R.drawable.icon,
-//            title = "Delete collection",
-//            onItemClick = { title ->
-//                Toast.makeText(
-//                    context,
-//                    title,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            })
-//    }
 }
 
 @Preview(showBackground = true)

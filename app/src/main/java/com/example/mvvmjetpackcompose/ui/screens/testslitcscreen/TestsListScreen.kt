@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,11 +31,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.data.models.RelationShipEnableModel
 import com.example.mvvmjetpackcompose.data.models.TestListModel
 import com.example.mvvmjetpackcompose.navigation.AllTestScreenClicks
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.addtocartbottomsheet.RelationShipEnableDialog
 
 @Composable
-fun TestsListScreen(modifier: Modifier = Modifier,allTestScreenClicks: AllTestScreenClicks) {
+fun TestsListScreen(modifier: Modifier = Modifier, allTestScreenClicks: AllTestScreenClicks) {
     Scaffold(topBar = { TestsListAppBar() },
         modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
@@ -49,10 +52,16 @@ fun TestsListScreen(modifier: Modifier = Modifier,allTestScreenClicks: AllTestSc
 
 
 @Composable
-fun AllTestsListContent(testListViewModel: TestListViewModel = hiltViewModel(),allTestScreenClicks: AllTestScreenClicks) {
+fun AllTestsListContent(
+    testListViewModel: TestListViewModel = hiltViewModel(),
+    allTestScreenClicks: AllTestScreenClicks
+) {
     LazyColumn(modifier = Modifier.padding(bottom = 70.dp)) {
         items(testListViewModel.testListModel) {
-            TestListItem(testListModel = it, allTestScreenClicks = allTestScreenClicks)
+            TestListItem(
+                testListModel = it,
+                allTestScreenClicks = allTestScreenClicks
+            )
         }
     }
 }
@@ -80,7 +89,6 @@ fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
         }
     }
 }
-
 
 @Composable
 fun TestsListAppBar(modifier: Modifier = Modifier) {
@@ -132,7 +140,26 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel,allTestScreenClicks: AllTestScreenClicks) {
+fun TestListItem(
+    modifier: Modifier = Modifier,
+    testListModel: TestListModel,
+    allTestScreenClicks: AllTestScreenClicks,
+   testListViewModel: TestListViewModel= hiltViewModel()
+) {
+
+    var showDialog = remember {
+        mutableStateOf(false)
+    }
+
+    if (showDialog.value) {
+        RelationShipEnableDialog(
+            relationShipEnableModels = testListViewModel.relationShipEnableModels,
+            setShowDialog = { showDialog.value = false },
+            onItemClick = { item1, item2 ->
+                testListViewModel.relationShipEnableModels[item2].enabled = item1
+            })
+    }
+
     Card(elevation = 5.dp, modifier = modifier.padding(top = 10.dp, bottom = 2.dp)) {
         Column(modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp)) {
             Text(
@@ -176,7 +203,7 @@ fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel,all
                     }
                     Spacer(modifier = modifier.width(7.dp))
                     OutlinedButton(
-                        onClick = { /*TODO*/ },
+                        onClick = { showDialog.value = true },
                         modifier = modifier.width(50.dp),
 
                         ) {
@@ -191,9 +218,12 @@ fun TestListItem(modifier: Modifier = Modifier, testListModel: TestListModel,all
 @Preview(showBackground = true)
 @Composable
 fun PreviewTestListItem() {
-    TestListItem(testListModel = TestListModel("", "", "", "", ""), allTestScreenClicks = object :AllTestScreenClicks{
-        override fun navigateToTestDetailScreen() {
+    TestListItem(
+        testListModel = TestListModel("", "", "", "", ""),
+        allTestScreenClicks = object : AllTestScreenClicks {
+            override fun navigateToTestDetailScreen() {
 
+            }
         }
-    })
+    )
 }

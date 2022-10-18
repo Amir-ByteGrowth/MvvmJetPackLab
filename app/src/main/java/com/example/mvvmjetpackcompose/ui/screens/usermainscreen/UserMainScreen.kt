@@ -23,8 +23,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.data.models.RelationShipEnableModel
 import com.example.mvvmjetpackcompose.navigation.HomeScreenClicks
 import com.example.mvvmjetpackcompose.splashactivity.ui.theme.MvvmJetPackComposeTheme
+import com.example.mvvmjetpackcompose.ui.screens.managerelationship.RelationShipDialog
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.addtocartbottomsheet.RelationShipEnableDialog
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.*
 
 @Composable
@@ -84,6 +87,9 @@ fun HomeScreen(
     userMainViewModel: UserMainViewModel = hiltViewModel(),
     homeScreenClicks: HomeScreenClicks
 ) {
+
+
+
     Scaffold(
         topBar = { AppBar() },
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 45.dp)
@@ -107,7 +113,12 @@ fun HomeScreen(
             item { Spacer(modifier = modifier.height(13.dp)) }
             item { TitleString("Our Services") }
             item { Spacer(modifier = modifier.height(10.dp)) }
-            item { TestsList(userMainViewModel.chughtaiServicesList,homeScreenClicks=homeScreenClicks) }
+            item {
+                TestsList(
+                    userMainViewModel.chughtaiServicesList,
+                    homeScreenClicks = homeScreenClicks
+                )
+            }
             item { Spacer(modifier = modifier.height(10.dp)) }
 
 

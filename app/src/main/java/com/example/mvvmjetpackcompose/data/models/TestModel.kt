@@ -9,3 +9,5 @@ data class TestListModel(
     val recommendedFor: String,
     val price: String
 )
+
+data class RelationShipEnableModel(val name: String, var enabled: Boolean)
