@@ -38,7 +38,7 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.addtocartbottoms
 
 @Composable
 fun TestsListScreen(modifier: Modifier = Modifier, allTestScreenClicks: AllTestScreenClicks) {
-    Scaffold(topBar = { TestsListAppBar() },
+    Scaffold(topBar = { TestsListAppBar(allTestScreenClicks = allTestScreenClicks) },
         modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
             Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
@@ -91,7 +91,7 @@ fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TestsListAppBar(modifier: Modifier = Modifier) {
+fun TestsListAppBar(modifier: Modifier = Modifier, allTestScreenClicks: AllTestScreenClicks) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -115,7 +115,7 @@ fun TestsListAppBar(modifier: Modifier = Modifier) {
                 .fillMaxHeight()
                 .clickable(interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = true), // You can also change the color and radius of the ripple
-                    onClick = {})
+                    onClick = { allTestScreenClicks.navigateToMyCartScreen() })
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.iconscart),
@@ -144,7 +144,7 @@ fun TestListItem(
     modifier: Modifier = Modifier,
     testListModel: TestListModel,
     allTestScreenClicks: AllTestScreenClicks,
-   testListViewModel: TestListViewModel= hiltViewModel()
+    testListViewModel: TestListViewModel = hiltViewModel()
 ) {
 
     var showDialog = remember {
@@ -161,10 +161,10 @@ fun TestListItem(
     }
 
     Card(elevation = 5.dp, modifier = modifier.padding(top = 10.dp, bottom = 2.dp)) {
-        Column(modifier = modifier.padding(horizontal = 10.dp, vertical = 10.dp)) {
+        Column(modifier = modifier.padding(horizontal = 7.dp, vertical = 7.dp)) {
             Text(
                 text = testListModel.testName, style = TextStyle.Default.copy(
-                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 15.sp
+                    color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 13.sp
                 )
 
             )
@@ -222,6 +222,10 @@ fun PreviewTestListItem() {
         testListModel = TestListModel("", "", "", "", ""),
         allTestScreenClicks = object : AllTestScreenClicks {
             override fun navigateToTestDetailScreen() {
+
+            }
+
+            override fun navigateToMyCartScreen() {
 
             }
         }

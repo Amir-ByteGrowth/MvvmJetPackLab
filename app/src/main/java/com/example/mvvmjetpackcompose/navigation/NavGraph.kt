@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.mvvmjetpackcompose.ui.screens.accountscreen.AccountScreen
 import com.example.mvvmjetpackcompose.ui.screens.chatscreen.ChatScreen
 import com.example.mvvmjetpackcompose.ui.screens.managerelationship.ManageRelationShipsScreen
+import com.example.mvvmjetpackcompose.ui.screens.mycartscreen.MyCartScreen
 import com.example.mvvmjetpackcompose.ui.screens.testslitcscreen.TestsListScreen
 import com.example.mvvmjetpackcompose.ui.screens.testslitcscreen.testdetailscreen.TestDetailScreen
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
@@ -44,11 +45,19 @@ fun NavigationGraph(navController: NavHostController) {
                 override fun navigateToTestDetailScreen() {
                     navController.navigate(Screens.TestDetailScreen.route)
                 }
+
+                override fun navigateToMyCartScreen() {
+                    navController.navigate(Screens.MyCartScreen.route)
+                }
             })
         }
 
         composable(Screens.TestDetailScreen.route) {
             TestDetailScreen()
+        }
+
+        composable(Screens.MyCartScreen.route) {
+            MyCartScreen()
         }
 
     }

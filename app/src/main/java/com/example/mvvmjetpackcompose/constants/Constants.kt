@@ -9,5 +9,6 @@ class Constants {
         const val MANAGE_RELATIONS = "ManageRelations"
         const val ALL_TESTS = "AllTests"
         const val TEST_DETAIL = "TestDetail"
+        const val MY_CART = "MyCart"
     }
 }

@@ -8,6 +8,8 @@ interface HomeScreenClicks {
     fun navigateToAllTestScreen()
 
 }
-interface AllTestScreenClicks{
+
+interface AllTestScreenClicks {
     fun navigateToTestDetailScreen()
+    fun navigateToMyCartScreen()
 }
