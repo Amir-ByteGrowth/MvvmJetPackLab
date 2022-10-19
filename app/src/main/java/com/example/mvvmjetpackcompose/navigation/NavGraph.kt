@@ -8,6 +8,7 @@ import com.example.mvvmjetpackcompose.ui.screens.accountscreen.AccountScreen
 import com.example.mvvmjetpackcompose.ui.screens.chatscreen.ChatScreen
 import com.example.mvvmjetpackcompose.ui.screens.managerelationship.ManageRelationShipsScreen
 import com.example.mvvmjetpackcompose.ui.screens.mycartscreen.MyCartScreen
+import com.example.mvvmjetpackcompose.ui.screens.servicesscreens.ServicesScreens
 import com.example.mvvmjetpackcompose.ui.screens.testslitcscreen.TestsListScreen
 import com.example.mvvmjetpackcompose.ui.screens.testslitcscreen.testdetailscreen.TestDetailScreen
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
@@ -20,6 +21,10 @@ fun NavigationGraph(navController: NavHostController) {
             CreateMainScreen(homeScreenClicks = object : HomeScreenClicks {
                 override fun navigateToAllTestScreen() {
                     navController.navigate(Screens.AllTests.route)
+                }
+
+                override fun navigateToMedicinesScreen() {
+                    navController.navigate(Screens.ServicesScreens.route)
                 }
 
 
@@ -58,6 +63,10 @@ fun NavigationGraph(navController: NavHostController) {
 
         composable(Screens.MyCartScreen.route) {
             MyCartScreen()
+        }
+
+        composable(Screens.ServicesScreens.route) {
+            ServicesScreens()
         }
 
     }

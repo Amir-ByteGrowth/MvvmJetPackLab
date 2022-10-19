@@ -6,6 +6,7 @@ interface AccountScreenClicks {
 
 interface HomeScreenClicks {
     fun navigateToAllTestScreen()
+    fun navigateToMedicinesScreen()
 
 }
 

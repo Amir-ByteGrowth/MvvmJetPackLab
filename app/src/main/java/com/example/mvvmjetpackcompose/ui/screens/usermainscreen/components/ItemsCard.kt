@@ -39,6 +39,8 @@ fun TestsList(testNameList: List<TestModel>, homeScreenClicks: HomeScreenClicks)
             ItemCard(testModel = it, onItemClick = {
                 if (it.name == "All") {
                     homeScreenClicks.navigateToAllTestScreen()
+                }else if(it.name=="Home Sampling"){
+                    homeScreenClicks.navigateToMedicinesScreen()
                 }
             })
 
