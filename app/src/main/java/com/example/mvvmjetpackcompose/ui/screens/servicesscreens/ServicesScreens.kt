@@ -234,7 +234,7 @@ fun ServicesAppBar(modifier: Modifier = Modifier, appBarTitle: String) {
             modifier = modifier.clickable {})
         Spacer(modifier = modifier.width(15.dp))
         Text(
-            text = "My Cart", style = TextStyle.Default.copy(
+            text = "Home Sampling", style = TextStyle.Default.copy(
                 color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp
             )
 

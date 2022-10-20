@@ -9,6 +9,7 @@ interface HomeScreenClicks {
     fun navigateToMedicinesScreen()
 
     fun navigateToReportScreen()
+    fun navigateToTravellerRequest()
 
 }
 

@@ -17,4 +17,5 @@ sealed class Screens(val route: String) {
     object ServicesScreens : Screens(SERVICES_SCREENS)
 
     object ReportsScreen : Screens(REPORT_SCREEN)
+    object TravellerRequestScreen : Screens(REPORT_SCREEN)
 }

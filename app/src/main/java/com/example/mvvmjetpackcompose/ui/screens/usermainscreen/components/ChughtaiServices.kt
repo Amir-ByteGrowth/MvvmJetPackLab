@@ -28,6 +28,8 @@ fun ChugtaiServicesList(testNameList: List<TestModel>, homeScreenClicks: HomeScr
             ItemCard(testModel = it, onItemClick = {
                 if (it.name == "View Report") {
                     homeScreenClicks.navigateToReportScreen()
+                }else if (it.name == "Travel Request"){
+                    homeScreenClicks.navigateToTravellerRequest()
                 }
 
             })

@@ -33,6 +33,7 @@ fun ReportsScreen(modifier: Modifier = Modifier) {
 
 }
 
+
 @Composable
 fun ReportsScreenContent(modifier: Modifier = Modifier) {
     LazyColumn(
@@ -61,13 +62,15 @@ fun ReportsScreenAppBar(modifier: Modifier = Modifier) {
         )
         Box(modifier = modifier
             .fillMaxWidth()
-            .clickable {}) {
+            ) {
             Icon(
                 imageVector = Icons.Default.Refresh,
                 contentDescription = "Refresh",
-                modifier = modifier.align(
-                    Alignment.CenterEnd
-                )
+                modifier = modifier
+                    .align(
+                        Alignment.CenterEnd
+                    )
+                    .clickable {}
             )
         }
     }
@@ -77,7 +80,8 @@ fun ReportsScreenAppBar(modifier: Modifier = Modifier) {
 fun ReportsListItem(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier
-            .height(70.dp).padding(start = 2.dp, end = 2.dp, top = 5.dp)
+            .height(70.dp)
+            .padding(start = 2.dp, end = 2.dp, top = 5.dp)
             .fillMaxWidth()
             .clickable { }, shape = RoundedCornerShape(0), elevation = 4.dp
     ) {
