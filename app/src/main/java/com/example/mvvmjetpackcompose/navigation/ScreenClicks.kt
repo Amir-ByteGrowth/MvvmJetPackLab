@@ -8,6 +8,8 @@ interface HomeScreenClicks {
     fun navigateToAllTestScreen()
     fun navigateToMedicinesScreen()
 
+    fun navigateToReportScreen()
+
 }
 
 interface AllTestScreenClicks {

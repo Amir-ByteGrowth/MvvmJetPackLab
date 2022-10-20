@@ -1,15 +1,15 @@
 package com.example.mvvmjetpackcompose.ui.screens.usermainscreen
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -23,12 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
-import com.example.mvvmjetpackcompose.data.models.RelationShipEnableModel
 import com.example.mvvmjetpackcompose.navigation.HomeScreenClicks
 import com.example.mvvmjetpackcompose.splashactivity.ui.theme.MvvmJetPackComposeTheme
-import com.example.mvvmjetpackcompose.ui.screens.managerelationship.RelationShipDialog
-import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.addtocartbottomsheet.RelationShipEnableDialog
-import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.*
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.ChugtaiServicesList
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.ImageSlider
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.TestsList
+import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.TitleString
 
 @Composable
 fun CreateMainScreen(homeScreenClicks: HomeScreenClicks) {
@@ -89,7 +89,6 @@ fun HomeScreen(
 ) {
 
 
-
     Scaffold(
         topBar = { AppBar() },
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 45.dp)
@@ -108,7 +107,12 @@ fun HomeScreen(
             item { Spacer(modifier = modifier.height(13.dp)) }
             item { TitleString("Chughtai Care") }
             item { Spacer(modifier = modifier.height(1.dp)) }
-            item { ChugtaiServicesList(userMainViewModel.chughtaiServicesList) }
+            item {
+                ChugtaiServicesList(
+                    userMainViewModel.chughtaiServicesList,
+                    homeScreenClicks = homeScreenClicks
+                )
+            }
 
             item { Spacer(modifier = modifier.height(13.dp)) }
             item { TitleString("Our Services") }
