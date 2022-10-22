@@ -15,5 +15,6 @@ class Constants {
         const val TRAVELLER_REQUEST_SCREEN = "ReportScreen"
 
         const val LOCATIONS_SCREEN = "LocationsScreen"
+        const val HOME_SAMPLE_SCREEN = "HomeSampleScreen"
     }
 }

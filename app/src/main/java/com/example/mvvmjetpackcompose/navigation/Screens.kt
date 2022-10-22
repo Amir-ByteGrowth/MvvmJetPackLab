@@ -21,4 +21,5 @@ sealed class Screens(val route: String) {
     object ReportsScreen : Screens(REPORT_SCREEN)
     object TravellerRequestScreen : Screens(TRAVELLER_REQUEST_SCREEN)
     object LocationsScreen : Screens(LOCATIONS_SCREEN)
+    object HomeSampleScreen : Screens(LOCATIONS_SCREEN)
 }
