@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.mvvmjetpackcompose.ui.screens.accountscreen.AccountScreen
 import com.example.mvvmjetpackcompose.ui.screens.chatscreen.ChatScreen
+import com.example.mvvmjetpackcompose.ui.screens.locationsscreen.LocationsScreen
 import com.example.mvvmjetpackcompose.ui.screens.managerelationship.ManageRelationShipsScreen
 import com.example.mvvmjetpackcompose.ui.screens.mycartscreen.MyCartScreen
 import com.example.mvvmjetpackcompose.ui.screens.reportsscreen.ReportsScreen
@@ -35,6 +36,10 @@ fun NavigationGraph(navController: NavHostController) {
 
                 override fun navigateToTravellerRequest() {
                     navController.navigate(Screens.TravellerRequestScreen.route)
+                }
+
+                override fun navigationToLocationScreen() {
+                    navController.navigate(Screens.LocationsScreen.route)
                 }
 
 
@@ -86,6 +91,10 @@ fun NavigationGraph(navController: NavHostController) {
 
         composable(Screens.TravellerRequestScreen.route) {
             TravellerDetailScreen()
+        }
+
+        composable(Screens.LocationsScreen.route) {
+            LocationsScreen()
         }
 
     }

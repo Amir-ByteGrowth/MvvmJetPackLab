@@ -127,4 +127,10 @@ dependencies {
 
     // constraint layout for jetpack compose
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
+    // google map sdk
+
+        implementation "com.google.maps.android:maps-compose:1.0.0"
+        implementation "com.google.android.gms:play-services-maps:18.0.2"
+
 }

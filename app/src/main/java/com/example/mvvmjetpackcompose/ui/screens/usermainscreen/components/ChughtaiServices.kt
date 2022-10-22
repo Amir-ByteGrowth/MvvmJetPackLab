@@ -30,6 +30,8 @@ fun ChugtaiServicesList(testNameList: List<TestModel>, homeScreenClicks: HomeScr
                     homeScreenClicks.navigateToReportScreen()
                 }else if (it.name == "Travel Request"){
                     homeScreenClicks.navigateToTravellerRequest()
+                }else if (it.name == "Locations"){
+                    homeScreenClicks.navigationToLocationScreen()
                 }
 
             })

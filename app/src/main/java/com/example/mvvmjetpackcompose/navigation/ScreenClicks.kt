@@ -10,6 +10,7 @@ interface HomeScreenClicks {
 
     fun navigateToReportScreen()
     fun navigateToTravellerRequest()
+    fun navigationToLocationScreen()
 
 }
 

@@ -13,5 +13,7 @@ class Constants {
         const val SERVICES_SCREENS = "ServicesScreens"
         const val REPORT_SCREEN = "ReportScreen"
         const val TRAVELLER_REQUEST_SCREEN = "ReportScreen"
+
+        const val LOCATIONS_SCREEN = "LocationsScreen"
     }
 }
