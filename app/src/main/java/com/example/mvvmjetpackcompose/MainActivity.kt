@@ -11,27 +11,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.protobuf.Empty
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.mvvmjetpackcompose.data.local.datastore.DataStoreProvider
-import com.example.mvvmjetpackcompose.data.models.PostsResponseItem
 import com.example.mvvmjetpackcompose.data.remote.ResourceSealed
 import com.example.mvvmjetpackcompose.navigation.BottomNav
+import com.example.mvvmjetpackcompose.navigation.BottomNavItem
 import com.example.mvvmjetpackcompose.navigation.NavigationGraph
 import com.example.mvvmjetpackcompose.ui.FirstViewModel
-
 import com.example.mvvmjetpackcompose.ui.screens.CreatePostsListScreen
-import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 import com.example.mvvmjetpackcompose.ui.theme.MvvmJetPackComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -44,7 +36,24 @@ class MainActivity : ComponentActivity() {
             MvvmJetPackComposeTheme {
                 // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
-                Scaffold (bottomBar = {BottomNav(navController = navController)}){
+
+//                val navController = rememberNavController()
+
+                val onBack: () -> Unit = {
+                    navController.popBackStack()
+                }
+
+                val screens = listOf(
+                    BottomNavItem.Home,
+                    BottomNavItem.Chat,
+                    BottomNavItem.Account
+                )
+
+                val showBottomBar = navController
+                    .currentBackStackEntryAsState().value?.destination?.route in screens.map { it.screen_route }
+
+
+                Scaffold(bottomBar = { if (showBottomBar) BottomNav(navController = navController) }) {
 
                     NavigationGraph(navController = navController)
                 }

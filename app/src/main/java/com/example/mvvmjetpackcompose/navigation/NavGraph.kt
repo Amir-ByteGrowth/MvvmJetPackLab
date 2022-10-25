@@ -20,45 +20,53 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
+
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
         composable(BottomNavItem.Home.screen_route) {
-            CreateMainScreen(homeScreenClicks = object : HomeScreenClicks {
-                override fun navigateToAllTestScreen() {
-                    navController.navigate(Screens.AllTests.route)
+
+            CreateMainScreen(
+                homeScreenClicks = object : HomeScreenClicks {
+                    override fun navigateToAllTestScreen() {
+                        navController.navigate(Screens.AllTests.route)
+                    }
+
+                    override fun navigateToMedicinesScreen() {
+                        navController.navigate(Screens.ServicesScreens.route)
+                    }
+
+                    override fun navigateToReportScreen() {
+                        navController.navigate(Screens.ReportsScreen.route)
+                    }
+
+                    override fun navigateToTravellerRequest() {
+                        navController.navigate(Screens.TravellerRequestScreen.route)
+                    }
+
+                    override fun navigationToLocationScreen() {
+                        navController.navigate(Screens.LocationsScreen.route)
+                    }
+
+                    override fun navigateToHomeSampleScreen() {
+                        navController.navigate(Screens.HomeSampleScreen.route)
+                    }
+
+
                 }
-
-                override fun navigateToMedicinesScreen() {
-                    navController.navigate(Screens.ServicesScreens.route)
-                }
-
-                override fun navigateToReportScreen() {
-                    navController.navigate(Screens.ReportsScreen.route)
-                }
-
-                override fun navigateToTravellerRequest() {
-                    navController.navigate(Screens.TravellerRequestScreen.route)
-                }
-
-                override fun navigationToLocationScreen() {
-                    navController.navigate(Screens.LocationsScreen.route)
-                }
-
-                override fun navigateToHomeSampleScreen() {
-                    navController.navigate(Screens.HomeSampleScreen.route)
-                }
-
-
-            })
+            )
         }
         composable(BottomNavItem.Chat.screen_route) {
+
             ChatScreen()
         }
         composable(BottomNavItem.Account.screen_route) {
-            AccountScreen(clicks = object : AccountScreenClicks {
-                override fun navigateToManageScreen() {
-                    navController.navigate(Screens.ManageScreens.route)
+
+            AccountScreen(
+                clicks = object : AccountScreenClicks {
+                    override fun navigateToManageScreen() {
+                        navController.navigate(Screens.ManageScreens.route)
+                    }
                 }
-            })
+            )
         }
 
         composable(Screens.ManageScreens.route) {
