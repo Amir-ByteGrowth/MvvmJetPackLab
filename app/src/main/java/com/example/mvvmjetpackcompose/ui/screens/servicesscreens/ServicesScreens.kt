@@ -20,11 +20,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.navigation.ServicesScreenClicks
 
 @Composable
-fun ServicesScreens(modifier: Modifier = Modifier) {
+fun ServicesScreens(modifier: Modifier = Modifier, servicesScreenClicks: ServicesScreenClicks) {
     Scaffold(
-        topBar = { ServicesAppBar(appBarTitle = "Medicines") },
+        topBar = {
+            ServicesAppBar(
+                appBarTitle = "Medicines",
+                servicesScreenClicks = servicesScreenClicks
+            )
+        },
         content = { ServicesContent() }
     )
 }
@@ -222,7 +228,11 @@ fun ServicesContent(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ServicesAppBar(modifier: Modifier = Modifier, appBarTitle: String) {
+fun ServicesAppBar(
+    modifier: Modifier = Modifier,
+    appBarTitle: String,
+    servicesScreenClicks: ServicesScreenClicks
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -231,10 +241,10 @@ fun ServicesAppBar(modifier: Modifier = Modifier, appBarTitle: String) {
     ) {
         Icon(imageVector = Icons.Default.ArrowBack,
             contentDescription = "Back",
-            modifier = modifier.clickable {})
+            modifier = modifier.clickable { servicesScreenClicks.navigateBack() })
         Spacer(modifier = modifier.width(15.dp))
         Text(
-            text = "Home Sampling", style = TextStyle.Default.copy(
+            text = appBarTitle, style = TextStyle.Default.copy(
                 color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 18.sp
             )
 
@@ -245,5 +255,9 @@ fun ServicesAppBar(modifier: Modifier = Modifier, appBarTitle: String) {
 @Preview
 @Composable
 fun PreviewServicesScreens() {
-    ServicesScreens()
+    ServicesScreens(servicesScreenClicks = object : ServicesScreenClicks {
+        override fun navigateBack() {
+
+        }
+    })
 }

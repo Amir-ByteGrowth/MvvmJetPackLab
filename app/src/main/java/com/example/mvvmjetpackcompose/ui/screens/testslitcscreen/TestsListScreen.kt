@@ -1,7 +1,5 @@
 package com.example.mvvmjetpackcompose.ui.screens.testslitcscreen
 
-import android.widget.Space
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -22,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -31,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
-import com.example.mvvmjetpackcompose.data.models.RelationShipEnableModel
 import com.example.mvvmjetpackcompose.data.models.TestListModel
 import com.example.mvvmjetpackcompose.navigation.AllTestScreenClicks
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.addtocartbottomsheet.RelationShipEnableDialog
@@ -100,7 +96,9 @@ fun TestsListAppBar(modifier: Modifier = Modifier, allTestScreenClicks: AllTestS
         Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier.fillMaxHeight()) {
             Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back",
-                modifier = modifier.clickable {})
+                modifier = modifier.clickable {
+                    allTestScreenClicks.navigateBack()
+                })
             Spacer(modifier = modifier.width(15.dp))
             Text(
                 text = "All Tests", style = TextStyle.Default.copy(
@@ -226,6 +224,10 @@ fun PreviewTestListItem() {
             }
 
             override fun navigateToMyCartScreen() {
+
+            }
+
+            override fun navigateBack() {
 
             }
         }

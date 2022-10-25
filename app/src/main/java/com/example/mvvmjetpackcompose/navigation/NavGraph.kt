@@ -1,9 +1,11 @@
 package com.example.mvvmjetpackcompose.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.mvvmjetpackcompose.SharedViewModel
 import com.example.mvvmjetpackcompose.ui.screens.accountscreen.AccountScreen
 import com.example.mvvmjetpackcompose.ui.screens.chatscreen.ChatScreen
 import com.example.mvvmjetpackcompose.ui.screens.homesamplingscreen.HomeSampleScreen
@@ -22,16 +24,24 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 fun NavigationGraph(navController: NavHostController) {
 
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
+
+        var sharedViewModel: SharedViewModel = SharedViewModel()
+        Log.d("MyName", sharedViewModel.otpVerifyingDataSharing.toString())
+
         composable(BottomNavItem.Home.screen_route) {
 
             CreateMainScreen(
                 homeScreenClicks = object : HomeScreenClicks {
                     override fun navigateToAllTestScreen() {
+                        sharedViewModel.otpVerifyingDataSharing = 1
                         navController.navigate(Screens.AllTests.route)
+
                     }
 
                     override fun navigateToMedicinesScreen() {
+                        sharedViewModel.otpVerifyingDataSharing = 2
                         navController.navigate(Screens.ServicesScreens.route)
+
                     }
 
                     override fun navigateToReportScreen() {
@@ -50,8 +60,16 @@ fun NavigationGraph(navController: NavHostController) {
                         navController.navigate(Screens.HomeSampleScreen.route)
                     }
 
+                    override fun navigateBack() {
+                        navController.popBackStack()
+                    }
 
-                }
+                    override fun navigateToCartScreen() {
+                        navController.navigate(Screens.MyCartScreen.route)
+                    }
+
+
+                }, sharedViewModel = sharedViewModel
             )
         }
         composable(BottomNavItem.Chat.screen_route) {
@@ -64,6 +82,10 @@ fun NavigationGraph(navController: NavHostController) {
                 clicks = object : AccountScreenClicks {
                     override fun navigateToManageScreen() {
                         navController.navigate(Screens.ManageScreens.route)
+                    }
+
+                    override fun navigateBack() {
+                        navController.popBackStack()
                     }
                 }
             )
@@ -82,6 +104,10 @@ fun NavigationGraph(navController: NavHostController) {
                 override fun navigateToMyCartScreen() {
                     navController.navigate(Screens.MyCartScreen.route)
                 }
+
+                override fun navigateBack() {
+                    navController.popBackStack()
+                }
             })
         }
 
@@ -90,11 +116,20 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(Screens.MyCartScreen.route) {
-            MyCartScreen()
+            MyCartScreen(myCartScreenClicks = object : MyCartScreenClicks {
+                override fun navigateBack() {
+                    navController.popBackStack()
+                }
+            })
         }
 
         composable(Screens.ServicesScreens.route) {
-            ServicesScreens()
+            ServicesScreens(servicesScreenClicks = object : ServicesScreenClicks {
+                override fun navigateBack() {
+                    navController.popBackStack()
+                }
+
+            })
         }
 
         composable(Screens.ReportsScreen.route) {
@@ -111,8 +146,14 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(Screens.HomeSampleScreen.route) {
-            HomeSampleScreen()
+            HomeSampleScreen(homeSampleCollectionClicks = object : HomeSampleCollectionClicks {
+                override fun navigateBack() {
+                    navController.popBackStack()
+                }
+
+            })
         }
 
     }
 }
+

@@ -3,10 +3,8 @@ package com.example.mvvmjetpackcompose.ui.screens.mycartscreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -21,22 +19,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.example.mvvmjetpackcompose.navigation.MyCartScreenClicks
 
 @Composable
-fun MyCartScreen(modifier: Modifier = Modifier) {
+fun MyCartScreen(modifier: Modifier = Modifier, myCartScreenClicks: MyCartScreenClicks) {
     Scaffold(
-        topBar = { MyCartAppBar() },
+        topBar = { MyCartAppBar(myCartScreenClicks = myCartScreenClicks) },
         modifier = modifier.padding(horizontal = 20.dp, vertical = 20.dp),
         content = { MyCartContent() }
     )
 }
 
 @Composable
-fun MyCartAppBar(modifier: Modifier = Modifier) {
+fun MyCartAppBar(modifier: Modifier = Modifier, myCartScreenClicks: MyCartScreenClicks) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = modifier.fillMaxWidth()) {
         Icon(imageVector = Icons.Default.ArrowBack,
             contentDescription = "Back",
-            modifier = modifier.clickable {})
+            modifier = modifier.clickable { myCartScreenClicks.navigateBack() })
         Spacer(modifier = modifier.width(15.dp))
         Text(
             text = "My Cart", style = TextStyle.Default.copy(
@@ -147,5 +146,9 @@ fun MyCartListItem(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewAppBar() {
-    MyCartScreen()
+    MyCartScreen(myCartScreenClicks = object : MyCartScreenClicks {
+        override fun navigateBack() {
+
+        }
+    })
 }

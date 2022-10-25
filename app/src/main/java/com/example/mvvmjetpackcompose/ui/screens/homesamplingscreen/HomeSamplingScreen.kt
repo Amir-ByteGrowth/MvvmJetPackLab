@@ -26,10 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.navigation.HomeSampleCollectionClicks
 
 @Composable
-fun HomeSampleScreen() {
-    Scaffold(topBar = { HomeSampleScreenAppBar() }, content = { HomeSampleContent() })
+fun HomeSampleScreen(homeSampleCollectionClicks: HomeSampleCollectionClicks) {
+    Scaffold(
+        topBar = { HomeSampleScreenAppBar(homeSampleCollectionClicks = homeSampleCollectionClicks) },
+        content = { HomeSampleContent() })
 
 }
 
@@ -94,11 +97,12 @@ fun HomeSampleContent(modifier: Modifier = Modifier) {
 
         LazyColumn(
             modifier = modifier
-                .padding(top = 160.dp, bottom = 70.dp).fillMaxSize()
+                .padding(top = 160.dp, bottom = 70.dp)
+                .fillMaxSize()
                 .background(color = Color.Transparent),
             state = rememberLazyListState()
         ) {
-            
+
             item {
                 Card(
                     modifier = modifier
@@ -276,7 +280,7 @@ fun HomeSampleContent(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun HomeSampleScreenAppBar(modifier: Modifier = Modifier) {
+fun HomeSampleScreenAppBar(modifier: Modifier = Modifier, homeSampleCollectionClicks: HomeSampleCollectionClicks) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -285,7 +289,7 @@ fun HomeSampleScreenAppBar(modifier: Modifier = Modifier) {
     ) {
         Icon(imageVector = Icons.Default.ArrowBack,
             contentDescription = "Back",
-            modifier = modifier.clickable {})
+            modifier = modifier.clickable { homeSampleCollectionClicks.navigateBack() })
         Spacer(modifier = modifier.width(15.dp))
         Text(
             text = "Home Sample collection", style = TextStyle.Default.copy(
@@ -533,5 +537,9 @@ fun TravellerScreenContent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PReviewHomeSampleScreen() {
-    HomeSampleScreen()
+    HomeSampleScreen(homeSampleCollectionClicks = object :HomeSampleCollectionClicks{
+        override fun navigateBack() {
+            TODO("Not yet implemented")
+        }
+    })
 }
