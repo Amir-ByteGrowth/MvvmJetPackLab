@@ -34,10 +34,10 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.Tests
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.TitleString
 
 @Composable
-fun CreateMainScreen(homeScreenClicks: HomeScreenClicks, sharedViewModel: SharedViewModel) {
+fun CreateMainScreen(homeScreenClicks: HomeScreenClicks, sharedViewModel: SharedViewModel,addCart:()->Unit) {
 
     MvvmJetPackComposeTheme {
-        HomeScreen(homeScreenClicks = homeScreenClicks, sharedViewModel = sharedViewModel)
+        HomeScreen(homeScreenClicks = homeScreenClicks, sharedViewModel = sharedViewModel, addCart = addCart)
     }
 }
 
@@ -45,9 +45,9 @@ fun CreateMainScreen(homeScreenClicks: HomeScreenClicks, sharedViewModel: Shared
 fun AppBar(
     modifier: Modifier = Modifier,
     sharedViewModel: SharedViewModel,
-    homeScreenClicks: HomeScreenClicks
+    homeScreenClicks: HomeScreenClicks,addCart: () -> Unit
 ) {
-    val specimens by sharedViewModel.specimens.observeAsState(initial = 0)
+    val specimens by sharedViewModel.itemsInCart.observeAsState(initial = 0)
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -65,19 +65,13 @@ fun AppBar(
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = true), // You can also change the color and radius of the ripple
-                onClick = {
-
-                    if (sharedViewModel.specimens.value == null) {
-
-
-                        sharedViewModel.specimens.value = 1
-
-                    } else {
-                        sharedViewModel.specimens.value = sharedViewModel.specimens.value!! + 1
-                    }
-
-                    homeScreenClicks.navigateToCartScreen()
-                }
+                onClick =  addCart
+//                {
+//
+//
+//
+////                    homeScreenClicks.navigateToCartScreen()
+//                }
             )
         ) {
             Icon(
@@ -106,12 +100,12 @@ fun AppBar(
 fun HomeScreen(
     userMainViewModel: UserMainViewModel = hiltViewModel(),
     homeScreenClicks: HomeScreenClicks,
-    sharedViewModel: SharedViewModel
+    sharedViewModel: SharedViewModel,addCart: () -> Unit
 ) {
 
 
     Scaffold(
-        topBar = { AppBar(sharedViewModel = sharedViewModel, homeScreenClicks = homeScreenClicks) },
+        topBar = { AppBar(sharedViewModel = sharedViewModel, homeScreenClicks = homeScreenClicks, addCart = addCart) },
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 45.dp)
     ) {
         val modifier = Modifier

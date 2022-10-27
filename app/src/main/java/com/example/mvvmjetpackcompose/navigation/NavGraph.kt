@@ -2,6 +2,9 @@ package com.example.mvvmjetpackcompose.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -21,12 +24,12 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(navController: NavHostController,sharedViewModel: SharedViewModel) {
 
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
 
-        var sharedViewModel: SharedViewModel = SharedViewModel()
-        Log.d("MyName", sharedViewModel.otpVerifyingDataSharing.toString())
+
+        Log.d("MyName", sharedViewModel.itemsInCart.value.toString())
 
         composable(BottomNavItem.Home.screen_route) {
 
@@ -70,7 +73,7 @@ fun NavigationGraph(navController: NavHostController) {
 
 
                 }, sharedViewModel = sharedViewModel
-            )
+            ) { sharedViewModel.addCart() }
         }
         composable(BottomNavItem.Chat.screen_route) {
 
@@ -108,7 +111,7 @@ fun NavigationGraph(navController: NavHostController) {
                 override fun navigateBack() {
                     navController.popBackStack()
                 }
-            })
+            }, sharedViewModel = sharedViewModel)
         }
 
         composable(Screens.TestDetailScreen.route) {

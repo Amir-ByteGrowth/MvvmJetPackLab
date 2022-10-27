@@ -14,6 +14,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,13 +30,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
+import com.example.mvvmjetpackcompose.SharedViewModel
 import com.example.mvvmjetpackcompose.data.models.TestListModel
 import com.example.mvvmjetpackcompose.navigation.AllTestScreenClicks
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.addtocartbottomsheet.RelationShipEnableDialog
 
 @Composable
-fun TestsListScreen(modifier: Modifier = Modifier, allTestScreenClicks: AllTestScreenClicks) {
-    Scaffold(topBar = { TestsListAppBar(allTestScreenClicks = allTestScreenClicks) },
+fun TestsListScreen(
+    sharedViewModel: SharedViewModel,
+    modifier: Modifier = Modifier,
+    allTestScreenClicks: AllTestScreenClicks
+) {
+    Scaffold(topBar = {
+        TestsListAppBar(
+            allTestScreenClicks = allTestScreenClicks,
+            sharedViewModel = sharedViewModel
+        )
+    },
         modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
             Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
@@ -52,7 +64,7 @@ fun AllTestsListContent(
     testListViewModel: TestListViewModel = hiltViewModel(),
     allTestScreenClicks: AllTestScreenClicks
 ) {
-    LazyColumn(modifier = Modifier.padding(bottom = 70.dp)) {
+    LazyColumn(modifier = Modifier.padding(bottom = 1.dp)) {
         items(testListViewModel.testListModel) {
             TestListItem(
                 testListModel = it,
@@ -87,7 +99,16 @@ fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TestsListAppBar(modifier: Modifier = Modifier, allTestScreenClicks: AllTestScreenClicks) {
+fun TestsListAppBar(
+    sharedViewModel: SharedViewModel,
+    modifier: Modifier = Modifier,
+    allTestScreenClicks: AllTestScreenClicks
+) {
+//    var itemVal = 0
+//    if (sharedViewModel.itemsInCart.value != null) {
+//        itemVal = sharedViewModel.itemsInCart.value!!
+//    }
+    val itemsInCart by sharedViewModel.itemsInCart.observeAsState()
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -131,7 +152,7 @@ fun TestsListAppBar(modifier: Modifier = Modifier, allTestScreenClicks: AllTestS
                     .clip(RoundedCornerShape(100))
                     .background(Color.Blue), contentAlignment = Alignment.Center
             ) {
-                Text(text = "9", color = Color.White, fontSize = 13.sp)
+                Text(text = itemsInCart.toString(), color = Color.White, fontSize = 13.sp)
             }
         }
     }

@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
+        var sharedViewModel: SharedViewModel = SharedViewModel()
 
         setContent {
             MvvmJetPackComposeTheme {
@@ -44,18 +44,16 @@ class MainActivity : ComponentActivity() {
                 }
 
                 val screens = listOf(
-                    BottomNavItem.Home,
-                    BottomNavItem.Chat,
-                    BottomNavItem.Account
+                    BottomNavItem.Home, BottomNavItem.Chat, BottomNavItem.Account
                 )
 
-                val showBottomBar = navController
-                    .currentBackStackEntryAsState().value?.destination?.route in screens.map { it.screen_route }
+                val showBottomBar =
+                    navController.currentBackStackEntryAsState().value?.destination?.route in screens.map { it.screen_route }
 
 
                 Scaffold(bottomBar = { if (showBottomBar) BottomNav(navController = navController) }) {
 
-                    NavigationGraph(navController = navController)
+                    NavigationGraph(navController = navController, sharedViewModel)
                 }
 
             }
@@ -86,7 +84,8 @@ fun CreateHeader(viewModel: FirstViewModel, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 5.dp),
-        color = Color.Blue, contentColor = Color.Red
+        color = Color.Blue,
+        contentColor = Color.Red
     ) {
 
         Row(
@@ -97,12 +96,14 @@ fun CreateHeader(viewModel: FirstViewModel, modifier: Modifier = Modifier) {
         ) {
             Column {
                 TextField(
-                    value = userNameTemp, onValueChange = { userNameTemp = it },
+                    value = userNameTemp,
+                    onValueChange = { userNameTemp = it },
                     label = {
                         Text(
                             text = "User Name", color = Color.White
                         )
-                    }, placeholder = { Text(text = "Enter new user name") },
+                    },
+                    placeholder = { Text(text = "Enter new user name") },
                     colors = TextFieldDefaults.textFieldColors(
                         cursorColor = Color.White,
                         placeholderColor = Color.White,
@@ -121,8 +122,7 @@ fun CreateHeader(viewModel: FirstViewModel, modifier: Modifier = Modifier) {
 
             Column {
                 Text(
-                    text = nameState,
-                    style = MaterialTheme.typography.h6.copy(color = Color.White)
+                    text = nameState, style = MaterialTheme.typography.h6.copy(color = Color.White)
                 )
                 Spacer(modifier = modifier.height(10.dp))
                 Text(text = "Logged In As", modifier = modifier.background(color = Color.White))
@@ -139,20 +139,17 @@ fun CreateHeader(viewModel: FirstViewModel, modifier: Modifier = Modifier) {
 fun CreateBody(viewModel: FirstViewModel) {
     when (val state = viewModel.postsData.collectAsState().value) {
         is ResourceSealed.Empty -> Text(
-            text = "Empty",
-            modifier = Modifier.padding(16.dp)
+            text = "Empty", modifier = Modifier.padding(16.dp)
         )
-        is ResourceSealed.Loading ->
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator()
-            }
+        is ResourceSealed.Loading -> Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator()
+        }
         is ResourceSealed.Error -> Text(
-            text = "Error",
-            modifier = Modifier.padding(16.dp)
+            text = "Error", modifier = Modifier.padding(16.dp)
         )
         is ResourceSealed.Success -> CreatePostsListScreen(list = state.data!!.toList())
     }
