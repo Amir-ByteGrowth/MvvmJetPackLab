@@ -11,3 +11,4 @@ data class TestListModel(
 )
 
 data class RelationShipEnableModel(val name: String, var enabled: Boolean)
+

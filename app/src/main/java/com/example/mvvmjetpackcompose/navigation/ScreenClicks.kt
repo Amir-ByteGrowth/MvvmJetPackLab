@@ -1,32 +1,36 @@
 package com.example.mvvmjetpackcompose.navigation
 
-interface AccountScreenClicks:BackClick {
+interface AccountScreenClicks : BackClick {
     fun navigateToManageScreen()
 }
 
-interface HomeScreenClicks :BackClick,AddCartClick{
-    fun navigateToAllTestScreen()
-    fun navigateToMedicinesScreen()
+interface HomeScreenClicks : BackClick, AddCartClick {
+
 
     fun navigateToReportScreen()
     fun navigateToTravellerRequest()
     fun navigationToLocationScreen()
     fun navigateToHomeSampleScreen()
 
+    fun navigateToTestsListScreen(typeId: Int)
+    fun navigateToOurServicesScreens(typeId: Int)
+
+
 }
 
-interface AllTestScreenClicks:BackClick {
+interface AllTestScreenClicks : BackClick {
     fun navigateToTestDetailScreen()
     fun navigateToMyCartScreen()
 }
 
-interface BackClick{
+interface BackClick {
     fun navigateBack()
 }
-interface AddCartClick{
+
+interface AddCartClick {
     fun navigateToCartScreen()
 }
 
-interface HomeSampleCollectionClicks:BackClick{}
-interface ServicesScreenClicks:BackClick{}
-interface MyCartScreenClicks:BackClick{}
+interface HomeSampleCollectionClicks : BackClick {}
+interface ServicesScreenClicks : BackClick {}
+interface MyCartScreenClicks : BackClick {}

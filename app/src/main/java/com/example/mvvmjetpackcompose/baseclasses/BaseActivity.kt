@@ -6,14 +6,3 @@ import androidx.activity.ComponentActivity
 
 
 
-open class BaseActivity : ComponentActivity() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
-
-    }
-
-
-}

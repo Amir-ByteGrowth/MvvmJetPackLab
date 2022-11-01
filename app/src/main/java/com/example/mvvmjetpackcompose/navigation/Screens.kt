@@ -1,6 +1,7 @@
 package com.example.mvvmjetpackcompose.navigation
 
 import com.example.mvvmjetpackcompose.constants.Constants.Companion.ALL_TESTS
+import com.example.mvvmjetpackcompose.constants.Constants.Companion.HOME_SAMPLE_SCREEN
 import com.example.mvvmjetpackcompose.constants.Constants.Companion.LOCATIONS_SCREEN
 import com.example.mvvmjetpackcompose.constants.Constants.Companion.MANAGE_RELATIONS
 import com.example.mvvmjetpackcompose.constants.Constants.Companion.MY_CART
@@ -21,5 +22,6 @@ sealed class Screens(val route: String) {
     object ReportsScreen : Screens(REPORT_SCREEN)
     object TravellerRequestScreen : Screens(TRAVELLER_REQUEST_SCREEN)
     object LocationsScreen : Screens(LOCATIONS_SCREEN)
-    object HomeSampleScreen : Screens(LOCATIONS_SCREEN)
+    object HomeSampleScreen : Screens(HOME_SAMPLE_SCREEN)
 }
+

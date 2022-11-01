@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,39 +23,31 @@ import com.example.mvvmjetpackcompose.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.delay
+
+var imgList = listOf(R.drawable.slide1, R.drawable.slide2, R.drawable.slide3, R.drawable.slide4)
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ImageSlider(modifier: Modifier = Modifier) {
+
     val slideImage = remember { mutableStateOf(R.drawable.slide1) }
     val state = rememberPagerState()
-    HorizontalPager(count = 3, state = state) { page ->
-        when (page) {
 
-            0 -> {
-                slideImage.value = R.drawable.slide1
-            }
 
-            1 -> {
-                slideImage.value = R.drawable.slide2
-            }
 
-            2 -> {
-                slideImage.value = R.drawable.slide3
-            }
-            3 -> {
-                slideImage.value = R.drawable.slide4
-            }
-        }
+    HorizontalPager(count = 4, state = state) { page ->
+
+        slideImage.value = imgList[page]
         Box(
             modifier = modifier
-                .padding(20.dp)
+                .padding(10.dp)
                 .fillMaxWidth(),
             contentAlignment = Alignment.BottomCenter
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = modifier.padding(horizontal = 20.dp)
+                modifier = modifier.padding(horizontal = 10.dp)
             ) {
 
 
@@ -64,12 +57,20 @@ fun ImageSlider(modifier: Modifier = Modifier) {
                 )
             }
             DotsIndicator(
-                totalDots = 3,
-                selectedIndex = state.currentPage,
+                totalDots = 4,
+                selectedIndex = page,
                 selectedColor = Color.Gray,
                 unSelectedColor = Color.White, dotSize = 14.dp
             )
         }
+    }
+
+    LaunchedEffect(key1 = state.currentPage) {
+        delay(3000)
+        var newPosition = state.currentPage + 1
+        if (newPosition >= 4) newPosition = 0
+        // scrolling to the new position.
+        state.animateScrollToPage(newPosition)
     }
 
 }

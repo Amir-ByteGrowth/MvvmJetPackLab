@@ -259,8 +259,7 @@ fun HomeSampleContent(modifier: Modifier = Modifier) {
 
         Box(
             modifier = modifier
-                .background(Color.Red)
-                .padding(top = 10.dp)
+                .padding(top = 10.dp, bottom = 10.dp)
                 .align(Alignment.BottomCenter),
         ) {
             Button(
@@ -280,7 +279,10 @@ fun HomeSampleContent(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun HomeSampleScreenAppBar(modifier: Modifier = Modifier, homeSampleCollectionClicks: HomeSampleCollectionClicks) {
+fun HomeSampleScreenAppBar(
+    modifier: Modifier = Modifier,
+    homeSampleCollectionClicks: HomeSampleCollectionClicks
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
@@ -537,7 +539,7 @@ fun TravellerScreenContent(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PReviewHomeSampleScreen() {
-    HomeSampleScreen(homeSampleCollectionClicks = object :HomeSampleCollectionClicks{
+    HomeSampleScreen(homeSampleCollectionClicks = object : HomeSampleCollectionClicks {
         override fun navigateBack() {
             TODO("Not yet implemented")
         }

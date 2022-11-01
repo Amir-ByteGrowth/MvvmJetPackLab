@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
 import com.example.mvvmjetpackcompose.SharedViewModel
@@ -34,10 +35,18 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.Tests
 import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.components.TitleString
 
 @Composable
-fun CreateMainScreen(homeScreenClicks: HomeScreenClicks, sharedViewModel: SharedViewModel,addCart:()->Unit) {
+fun CreateMainScreen(
+    homeScreenClicks: HomeScreenClicks,
+    sharedViewModel: SharedViewModel,
+    addCart: () -> Unit
+) {
 
     MvvmJetPackComposeTheme {
-        HomeScreen(homeScreenClicks = homeScreenClicks, sharedViewModel = sharedViewModel, addCart = addCart)
+        HomeScreen(
+            homeScreenClicks = homeScreenClicks,
+            sharedViewModel = sharedViewModel,
+            addCart = addCart
+        )
     }
 }
 
@@ -45,7 +54,7 @@ fun CreateMainScreen(homeScreenClicks: HomeScreenClicks, sharedViewModel: Shared
 fun AppBar(
     modifier: Modifier = Modifier,
     sharedViewModel: SharedViewModel,
-    homeScreenClicks: HomeScreenClicks,addCart: () -> Unit
+    homeScreenClicks: HomeScreenClicks, addCart: () -> Unit
 ) {
     val specimens by sharedViewModel.itemsInCart.observeAsState(initial = 0)
     Box(
@@ -59,20 +68,21 @@ fun AppBar(
             modifier.size(width = 146.dp, height = 55.dp)
         )
 
-        Box(modifier = modifier
-            .align(Alignment.TopEnd)
-            .fillMaxHeight()
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = true), // You can also change the color and radius of the ripple
-                onClick =  addCart
+        Box(
+            modifier = modifier
+                .align(Alignment.TopEnd)
+                .fillMaxHeight()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(bounded = true), // You can also change the color and radius of the ripple
+                    onClick = addCart
 //                {
 //
 //
 //
 ////                    homeScreenClicks.navigateToCartScreen()
 //                }
-            )
+                )
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.iconscart),
@@ -100,13 +110,24 @@ fun AppBar(
 fun HomeScreen(
     userMainViewModel: UserMainViewModel = hiltViewModel(),
     homeScreenClicks: HomeScreenClicks,
-    sharedViewModel: SharedViewModel,addCart: () -> Unit
+    sharedViewModel: SharedViewModel, addCart: () -> Unit
 ) {
 
-
+    val myColorString = "#F1F1F1"
+    val myComposeColorInt = Color(myColorString.toColorInt())
     Scaffold(
-        topBar = { AppBar(sharedViewModel = sharedViewModel, homeScreenClicks = homeScreenClicks, addCart = addCart) },
-        modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 45.dp)
+
+        topBar = {
+            AppBar(
+                sharedViewModel = sharedViewModel,
+                homeScreenClicks = homeScreenClicks,
+                addCart = addCart
+            )
+        },
+        modifier = Modifier
+            .background(color = myComposeColorInt)
+            .padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 45.dp),
+         backgroundColor = myComposeColorInt,
     ) {
         val modifier = Modifier
         LazyColumn(
@@ -117,8 +138,14 @@ fun HomeScreen(
             item { ImageSlider() }
 //                SpacerCompose(modifier)
             item { TitleString("Search Tests") }
-            item { Spacer(modifier = modifier.height(10.dp)) }
-            item { TestsList(userMainViewModel.testsList, homeScreenClicks = homeScreenClicks) }
+            item { Spacer(modifier = modifier.height(16.dp)) }
+            item {
+                TestsList(
+                    userMainViewModel.testsList,
+                    homeScreenClicks = homeScreenClicks,
+                    "Tests"
+                )
+            }
             item { Spacer(modifier = modifier.height(13.dp)) }
             item { TitleString("Chughtai Care") }
             item { Spacer(modifier = modifier.height(1.dp)) }
@@ -134,8 +161,8 @@ fun HomeScreen(
             item { Spacer(modifier = modifier.height(10.dp)) }
             item {
                 TestsList(
-                    userMainViewModel.chughtaiServicesList,
-                    homeScreenClicks = homeScreenClicks
+                    userMainViewModel.servicesList,
+                    homeScreenClicks = homeScreenClicks, "Services"
                 )
             }
             item { Spacer(modifier = modifier.height(10.dp)) }

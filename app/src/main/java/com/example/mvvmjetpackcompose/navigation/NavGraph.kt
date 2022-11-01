@@ -2,9 +2,6 @@ package com.example.mvvmjetpackcompose.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,7 +21,7 @@ import com.example.mvvmjetpackcompose.ui.screens.usermainscreen.CreateMainScreen
 
 
 @Composable
-fun NavigationGraph(navController: NavHostController,sharedViewModel: SharedViewModel) {
+fun NavigationGraph(navController: NavHostController, sharedViewModel: SharedViewModel) {
 
     NavHost(navController, startDestination = BottomNavItem.Home.screen_route) {
 
@@ -35,17 +32,7 @@ fun NavigationGraph(navController: NavHostController,sharedViewModel: SharedView
 
             CreateMainScreen(
                 homeScreenClicks = object : HomeScreenClicks {
-                    override fun navigateToAllTestScreen() {
-                        sharedViewModel.otpVerifyingDataSharing = 1
-                        navController.navigate(Screens.AllTests.route)
 
-                    }
-
-                    override fun navigateToMedicinesScreen() {
-                        sharedViewModel.otpVerifyingDataSharing = 2
-                        navController.navigate(Screens.ServicesScreens.route)
-
-                    }
 
                     override fun navigateToReportScreen() {
                         navController.navigate(Screens.ReportsScreen.route)
@@ -61,6 +48,20 @@ fun NavigationGraph(navController: NavHostController,sharedViewModel: SharedView
 
                     override fun navigateToHomeSampleScreen() {
                         navController.navigate(Screens.HomeSampleScreen.route)
+                    }
+
+                    override fun navigateToTestsListScreen(typeId: Int) {
+                        Log.d("Index", typeId.toString())
+                        navController.navigate(Screens.AllTests.route)
+                    }
+
+                    override fun navigateToOurServicesScreens(typeId: Int) {
+                        navController.navigate(Screens.ServicesScreens.route)
+                        if (typeId == 0) {
+                        } else if (typeId == 1) {
+                        } else if (typeId == 1) {
+                        } else if (typeId == 1) {
+                        }
                     }
 
                     override fun navigateBack() {

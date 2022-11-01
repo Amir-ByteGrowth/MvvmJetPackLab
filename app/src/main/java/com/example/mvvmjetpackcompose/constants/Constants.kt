@@ -12,7 +12,7 @@ class Constants {
         const val MY_CART = "MyCart"
         const val SERVICES_SCREENS = "ServicesScreens"
         const val REPORT_SCREEN = "ReportScreen"
-        const val TRAVELLER_REQUEST_SCREEN = "ReportScreen"
+        const val TRAVELLER_REQUEST_SCREEN = "TravellerScreen"
 
         const val LOCATIONS_SCREEN = "LocationsScreen"
         const val HOME_SAMPLE_SCREEN = "HomeSampleScreen"
