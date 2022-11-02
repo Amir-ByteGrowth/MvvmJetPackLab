@@ -13,21 +13,20 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mvvmjetpackcompose.R
 import com.example.mvvmjetpackcompose.SharedViewModel
@@ -41,59 +40,104 @@ fun TestsListScreen(
     modifier: Modifier = Modifier,
     allTestScreenClicks: AllTestScreenClicks
 ) {
+
+
+
     Scaffold(topBar = {
         TestsListAppBar(
             allTestScreenClicks = allTestScreenClicks,
             sharedViewModel = sharedViewModel
         )
     },
-        modifier = modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
+        modifier = modifier
+            .background(color = colorResource(R.color.background))
+            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp),
         content = {
-            Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
-                TestListsScreenSearchBar()
-                Spacer(modifier = modifier.height(10.dp))
-                AllTestsListContent(allTestScreenClicks = allTestScreenClicks)
+            MainContent(allTestScreenClicks = allTestScreenClicks)
+        },
+        backgroundColor = colorResource(R.color.background)
+    )
+}
 
-            }
-        })
+@Composable
+fun MainContent(modifier: Modifier = Modifier, allTestScreenClicks: AllTestScreenClicks) {
+    var searchStr by remember {
+        mutableStateOf("")
+    }
+    Column(modifier = modifier.padding(vertical = 10.dp, horizontal = 8.dp)) {
+        TestListsScreenSearchBar(searchString = searchStr, onTextChange = { searchStr = it })
+        Spacer(modifier = modifier.height(10.dp))
+        AllTestsListContent(allTestScreenClicks = allTestScreenClicks, searchString = searchStr)
+
+    }
 }
 
 
 @Composable
 fun AllTestsListContent(
     testListViewModel: TestListViewModel = hiltViewModel(),
-    allTestScreenClicks: AllTestScreenClicks
+    allTestScreenClicks: AllTestScreenClicks, searchString: String
 ) {
     LazyColumn(modifier = Modifier.padding(bottom = 1.dp)) {
         items(testListViewModel.testListModel) {
-            TestListItem(
-                testListModel = it,
-                allTestScreenClicks = allTestScreenClicks
-            )
+            if (it.testName.contains(searchString, true))
+                TestListItem(
+                    testListModel = it,
+                    allTestScreenClicks = allTestScreenClicks
+                )
         }
     }
 }
 
 
 @Composable
-fun TestListsScreenSearchBar(modifier: Modifier = Modifier) {
+fun TestListsScreenSearchBar(
+    modifier: Modifier = Modifier,
+    searchString: String,
+    onTextChange: (String) -> Unit
+) {
     Card(
-        modifier = modifier.height(55.dp), elevation = 5.dp
+        modifier = modifier, elevation = 5.dp
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.padding(start = 5.dp, end = 5.dp, bottom = 5.dp)
+            modifier = modifier.padding(horizontal = 10.dp)
         ) {
-            Icon(imageVector = Icons.Default.Search, contentDescription = "")
-            Spacer(modifier = modifier.width(15.dp))
-            TextField(
-                singleLine = true,
-                value = "Search",
-                onValueChange = { "Search.." },
-                modifier = modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White),
-                textStyle = TextStyle.Default.copy(fontSize = 13.sp)
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "",
+                modifier = modifier.size(22.dp)
             )
+            Spacer(modifier = modifier.width(15.dp))
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(55.dp)
+                    .padding(bottom = 5.dp)
+            ) {
+                TextField(
+                    singleLine = true,
+                    value = searchString,
+                    onValueChange = { onTextChange(it) },
+                    modifier = modifier
+                        .padding(0.dp)
+                        .fillMaxWidth(),
+                    colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White),
+                    textStyle = TextStyle.Default.copy(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
+                    placeholder = {
+                        Text(
+                            text = "Search here",
+                            style = TextStyle(fontSize = 12.sp)
+                        )
+                    }
+                )
+
+
+            }
+
         }
     }
 }
@@ -179,8 +223,10 @@ fun TestListItem(
             })
     }
 
-    Card(elevation = 5.dp, modifier = modifier.padding(top = 10.dp, bottom = 2.dp)) {
-        Column(modifier = modifier.padding(horizontal = 7.dp, vertical = 7.dp)) {
+
+
+    Card(elevation = 0.dp, modifier = modifier.padding(top = 10.dp, bottom = 2.dp),) {
+        Column(modifier = modifier.padding(horizontal = 15.dp, vertical = 12.dp)) {
             Text(
                 text = testListModel.testName, style = TextStyle.Default.copy(
                     color = Color.Black, fontWeight = FontWeight.Bold, fontSize = 13.sp
@@ -202,7 +248,7 @@ fun TestListItem(
             )
 
             OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = testListModel.recommendedFor)
+                Text(text = testListModel.recommendedFor, style = TextStyle(fontSize = 12.sp))
             }
             Box(
                 modifier = modifier
@@ -218,7 +264,7 @@ fun TestListItem(
                 )
                 Row(modifier = modifier.align(Alignment.CenterEnd)) {
                     Button(onClick = { allTestScreenClicks.navigateToTestDetailScreen() }) {
-                        Text(text = "DETAIL")
+                        Text(text = "DETAIL", style = TextStyle.Default.copy(fontSize = 13.sp))
                     }
                     Spacer(modifier = modifier.width(7.dp))
                     OutlinedButton(
