@@ -116,7 +116,21 @@ fun NavigationGraph(navController: NavHostController, sharedViewModel: SharedVie
         }
 
         composable(Screens.TestDetailScreen.route) {
-            TestDetailScreen()
+            TestDetailScreen(testDetailScreenClicks = object :TestDetailScreenClicks{
+                override fun addToCart() {
+                    sharedViewModel.addCart()
+                    navController.popBackStack()
+                }
+
+                override fun navigateBack() {
+                    navController.popBackStack()
+                }
+
+                override fun navigateToCartScreen() {
+                    navController.navigate(Screens.MyCartScreen.route)
+                }
+
+            },sharedViewModel = sharedViewModel)
         }
 
         composable(Screens.MyCartScreen.route) {

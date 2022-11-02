@@ -29,8 +29,13 @@ interface BackClick {
 
 interface AddCartClick {
     fun navigateToCartScreen()
+
 }
 
 interface HomeSampleCollectionClicks : BackClick {}
 interface ServicesScreenClicks : BackClick {}
 interface MyCartScreenClicks : BackClick {}
+
+interface TestDetailScreenClicks : BackClick,AddCartClick {
+    fun addToCart()
+}
